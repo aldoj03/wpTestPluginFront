@@ -1,0 +1,21 @@
+<div class="content">
+    <app-scrore *ngIf="page == 'score'"></app-scrore>
+    <div *ngIf="page == 'score'" >
+    <h2 class="test_title">Test de Matemáticas</h2>
+    <div class="test_time_container">
+        <mat-icon color="accent">timer</mat-icon>
+        <span>Tiempo restante <strong>30:02</strong></span>
+    </div>
+    <div class="questions_count">
+        <span>Pregunta 1 de 5</span>
+    </div>
+    <div class="progress_bar">
+        <mat-progress-bar mode="determinate" value="40" color="warn"></mat-progress-bar>
+    </div>
+    <app-question [answers]="answers" [title]="title"></app-question>
+    <div class="buttons">
+        <button mat-raised-button color="primary" (click)="page = 'score'">ENVIAR</button>
+        <button mat-raised-button color="primary" disabled>SIGUIENTE</button>
+    </div>
+    </div>
+</div>

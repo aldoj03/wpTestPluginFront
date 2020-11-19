@@ -1,0 +1,12 @@
+.answers_container{
+    margin: 20px 30px;
+}
+.answers_container mat-radio-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.answers_container mat-radio-button{
+
+    margin: 8px 0;
+}

@@ -1,0 +1,31 @@
+.container{
+    height: 100%;
+    background-color: rgb(245, 245, 245);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.wrapper{
+    padding: 16px;
+    background-color: white;
+    width: 80%;
+    height: 80%;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    background-color:  rgb(245, 245, 245);
+    border-bottom: 3px solid #3f51b5;
+    padding: 16px;
+}
+header h1{
+    text-align: center;
+    margin: 0;
+}
+app-test{
+    height: 100%;
+}
