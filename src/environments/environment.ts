@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiURl : 'http://192.168.100.251/yy/wp-json/wpcode/v1/'
 };
 
 /*

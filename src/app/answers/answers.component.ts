@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-question',
-  templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css']
+  selector: 'app-answers',
+  templateUrl: './answers.component.html',
+  styleUrls: ['./answers.component.css']
 })
-export class QuestionComponent implements OnInit {
+export class AnswersComponent implements OnInit {
 
   @Input() answers :Array<any> = [];
   @Input() title :String = '';

@@ -2,7 +2,7 @@
 
     text-align: center;
     margin-top: 20px;
-    font-size: 2em;
+    font-size: 1.8em;
     color: rgb(82, 82, 82);
 
 }
@@ -29,7 +29,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
 
 }
 
@@ -41,4 +41,39 @@
 .buttons button:last-child{
     position: absolute;
     right: 0;
+}
+
+.questions_count {
+    text-align: center;
+}
+
+app-score{
+    height: 100%;
+}
+
+.test_content{
+    display: flex;
+    flex-direction:column ;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.answers_container{
+    margin: 20px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.answers_container mat-radio-button{
+
+    margin: 8px 0;
+}
+mat-spinner{
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 }

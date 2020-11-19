@@ -1,0 +1,55 @@
+.results_container{
+    display: flex;
+    justify-content: c;
+}
+.results_container > div{
+    width: 40%;
+}
+.result_subtitle{
+    text-align: center;
+}
+
+.results_count > div{
+    margin: 6px 8px;
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-weight: 500;
+}
+
+.count_corrects{
+    border: 2px solid rgb(35, 128, 27);
+    color: rgb(35, 128, 27);
+
+}
+.count_incorrects{
+    border: 2px solid rgb(165, 28, 40);
+    color: rgb(165, 28, 40);
+
+}
+.count_no_resueltas{
+    border: 2px solid rgb(94, 94, 94);
+    color: rgb(94, 94, 94);
+
+}
+
+.reuslts_conclution{
+    text-align: center;
+}
+.reuslts_conclution button{
+    margin: 0 18px;
+}
+
+.results_content{
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.footer_buttons{
+    text-align: center;
+}
+
+.footer_buttons button{
+    margin: 0 18px;
+}

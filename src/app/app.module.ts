@@ -6,23 +6,29 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core/core.module';
 import { TestComponent } from './test/test.component';
-import { QuestionComponent } from './question/question.component';
+import { AnswersComponent } from './answers/answers.component';
 import { ScoreComponent } from './score/score.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { TestService } from './services/test.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestComponent,
-    QuestionComponent,
+    AnswersComponent,
     ScoreComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CoreModule
+    CoreModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [TestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
