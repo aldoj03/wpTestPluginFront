@@ -4,9 +4,26 @@
 .answers_container mat-radio-group{
     display: flex;
     flex-direction: column;
+
 }
 
 .answers_container mat-radio-button{
 
     margin: 8px 0;
+}
+
+mat-radio-button{
+    width: fit-content;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #53535398;
+    background-color:#b3b3b31c;
+    min-width:250px
+
+}
+
+
+
+.mat-radio-checked{
+    border: 1px solid #0092ed ;
 }

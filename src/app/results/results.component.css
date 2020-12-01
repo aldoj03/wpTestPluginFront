@@ -1,0 +1,55 @@
+.correctOptionResult,.incorrectOptionResult{
+
+    margin: 16px
+}
+
+.resultOption{
+    width: fit-content;
+    padding: 15px;
+    border-radius: 6px;
+    background-color:#b3b3b31c;
+    min-width:250px;
+    font-weight: 500;
+
+}
+
+.resultOption span{
+    font-size: 20px;
+    margin-right: 20px;
+}
+.question{
+    border-style: dashed;
+    border-color: #b3b3b31c;
+    padding: 20px 0;
+    border-width: 1px;
+    border-right: none;
+    border-left: none;
+}
+.incorrectOptionResult p{
+    color: orangered;
+}
+.resultOption{
+    border-width: 1px;
+    border-style: solid;
+}
+
+
+.incorrectOptionResult p{
+    color: #009789;
+}
+.incorrectOptionResult .resultOption{
+    color: orangered;
+    border-color: orangered;
+    
+}
+.correctOptionResult p{
+    color: #009789;
+}
+.correctOptionResult .resultOption{
+    color: #009789;
+    border-color: #009789;
+    background-color: transparent;
+}
+.circle_number--correct{
+    background: #009789;
+}   

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DebugElement, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { TestService } from '../services/test.service';
-import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-test',
@@ -11,6 +10,7 @@ import { map } from 'rxjs/operators'
 export class TestComponent implements OnInit {
 
   public title: String = 'Esta es la pregunta';
+  public action: String = 'test';
 
   public min: number = 0;
   public sec: number = 0;
@@ -18,13 +18,15 @@ export class TestComponent implements OnInit {
   public limitTime: boolean = false;
   public dataLoaded: boolean = false;
 
+  public validForm: boolean = false;
+
   public optionsForm: FormGroup = new FormGroup({
     options: new FormArray([])
   });
 
-  public selectedOptions:Array<any> = [];
+  public selectedOptions: Array<any> = [];
 
-  public questions: Array<any> = [];
+  public questions: Array<any> = Array();
 
   constructor(
     private testService: TestService
@@ -35,39 +37,105 @@ export class TestComponent implements OnInit {
   ngOnInit(): void {
     this.initTime();
 
-    this.testService.getTest('17')
-      .pipe(map(val => JSON.parse(val.element_data)))
-      .subscribe(val => this.initQuestions(val))
+    // this.testService.getTest('17')
+    //   .pipe(map(val => JSON.parse(val.element_data)))
+    //   .subscribe(val => this.initQuestions(val))
 
+    const val = {
+      "id": "18",
+      "name": "Matematicaas",
+      "session_data": "",
+      "element_data": {
+        "date": "11/19/20 a las 3:19pm",
+        "name": "Matematicaas",
+        "time": "30",
+        "categories": [
+          1,
+          3,
+          5
+        ],
+        "subcategories": [
+          1,
+          4,
+          5
+        ],
+        "maxlimit": 0,
+        "level": [
+          {
+            "low": true
+          },
+          {
+            "medium": false
+          },
+          {
+            "high": false
+          }
+        ],
+        "orderRandom": true,
+        "question": [
+          {
+            "id": "1",
+            "title": "Que vino primero la galiisna o el huevo",
+            "point": 32,
+            "options": [
+              {
+                "title": "la gallina",
+                "type": true
+              },
+              {
+                "title": "el huevo",
+                "type": false
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "title": "Que vino primero la galiisna o el huevo",
+            "point": 32,
+            "options": [
+              {
+                "title": "la gallina",
+                "type": true
+              },
+              {
+                "title": "el huevo",
+                "type": false
+              }
+            ]
+          }
+        ]
+      }
+    }
 
+   
+    this.initQuestions(val.element_data);
 
   }
 
   initQuestions(val: any) {
-
     const random = val.orderRandom;
 
-    this.questions = random ? val.question.sort(() => Math.random() - 0.5) : val.question;
+
+    // this.questions = random ? [...val.question.sort(() => Math.random() - 0.5)] : [...val.question];
+    this.questions = val.question;
+
     this.title = val.name;
     this.limitTime = val.time;
 
 
 
     let questionsArray = new FormArray([]);
-
-    this.questions.forEach(question => {
+    this.questions.map(question => {
       let optionsArray = new FormArray([]);
       const options: Array<any> = question['options'];
-      options.forEach(option => {
-        this.selectedOptions.push({selected: false});
+      this.selectedOptions.push({ selected: null });
+      options.map(option => {
         optionsArray.push(new FormControl(option['title']))
       });
-      this.questions.push(question)
       questionsArray.push(optionsArray)
       this.optionsForm.controls.options = questionsArray
     })
 
-    console.log(this.optionsForm);
 
     this.dataLoaded = true
 
@@ -104,12 +172,24 @@ export class TestComponent implements OnInit {
   }
 
   onSubmit() {
+    this.validForm = false;
+    this.questionPage++
 
-      console.log(this.selectedOptions);
-      
 
   }
 
 
+  activateForm() {
+    this.validForm = true
+  }
+
+  skipQuestion() {
+    this.questionPage++
+    if(this.questionPage  == this.questions.length) console.log(this.selectedOptions);
+  }
+
+  setAction(action:String){
+    this.action = action
+  }
 
 }

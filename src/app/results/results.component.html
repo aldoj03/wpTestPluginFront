@@ -1,0 +1,19 @@
+<h2 class="test_title">Respuestas Test's de {{title}}</h2>
+
+
+<div class="content">
+    <div *ngFor="let question of questionsToShow; let i = index " class="question">
+        <div class="question_title">
+            <div class="circle_number " [class.circle_number--correct]="question.correct">{{i + 1}}</div>
+            <h3>{{question.title}}</h3>
+        </div>
+        <div  *ngIf="!question.correct" class="incorrectOptionResult">
+            <p>Incorrecto</p>
+            <div class="resultOption"><span>X</span>{{question.selectedOption}}</div>
+        </div>
+        <div  class="correctOptionResult">
+            <p>Correcto</p>
+            <div class="resultOption"><span>✓</span>{{question.correctOption}}</div>
+        </div>
+    </div>
+</div>

@@ -1,42 +1,41 @@
 <div class="content" *ngIf="dataLoaded">
-    <h2 class="test_title">Test de {{title}}</h2>
-    <app-score *ngIf="questionPage  == questions.length"></app-score>
-    <div class="test_content" *ngIf="dataLoaded">
-        <div class="test_time_container" *ngIf="limitTime">
-            <mat-icon color="accent">timer</mat-icon>
-            <span>Tiempo restante <strong>{{min}}:{{sec}}</strong></span>
-        </div>
-        <div class="questions_count">
-            <span>Pregunta {{questionPage + 1}} de {{questions.length}}</span>
-        </div>
-        <div class="progress_bar">
-            <mat-progress-bar mode="determinate" [value]="((questionPage ) / questions.length) * 100" color="warn"></mat-progress-bar>
-        </div>
-        <!-- <form class="answers_container" [formGroup]="optionsForm">
-            <h3>{{questions[questionPage].title}}</h3>
+    <ng-container [ngSwitch]="action">
+        <ng-container *ngSwitchCase="'test'">
 
-            <mat-radio-button *ngFor="let option of questions[0].options; index as i" name="option" required>
-                {{option.title}}
-            </mat-radio-button>
-            <button mat-raised-button color="primary" (click)="questionPage = questionPage + 1" >ENVIAR</button>{{questionPage}}
-        </form> -->
-        <!-- <form class="answers_container" #form="ngForm" (ngSubmit)="onSubmit()"> -->
-            <h3>{{questions[questionPage].title}}</h3>
-
-            <mat-radio-group [(ngModel)]="selectedOptions[0].selected">
-                <mat-radio-button class="example-radio-button"
-                 *ngFor="let option of questions[0].options; index as i"
-                 
-                    [value]="option.title">
-                    {{option.title}}
-                </mat-radio-button>
-            </mat-radio-group>
-            <!-- <button mat-raised-button color="primary" (click)="questionPage = questionPage + 1" >ENVIAR</button>{{questionPage}} -->
-            <button mat-raised-button color="primary" (click)="onSubmit()" >ENVIAR</button>{{questionPage}}
-        <!-- </form> -->
-        <div class="buttons">
-            <button mat-raised-button color="accent" (click)="questionPage = questionPage + 1">SIGUIENTE</button>
-        </div>
-    </div>
+            <h2 class="test_title">Test de {{title}}</h2>
+            <app-score *ngIf="questionPage  == questions.length" 
+            [results]="selectedOptions" 
+            [questions]="questions"
+            (setAction)="setAction( $event )">
+            </app-score>
+            <div class="test_content" *ngIf="dataLoaded && questionPage  != questions.length">
+                <div class="test_time_container" *ngIf="limitTime">
+                    <mat-icon>timer</mat-icon>
+                    <span>Tiempo restante <strong class="time">{{min}}:{{sec}}</strong></span>
+                </div>
+                <div class="questions_count">
+                    <span>Pregunta {{questionPage + 1}} de {{questions.length}}</span>
+                </div>
+                <div class="progress_bar">
+                    <mat-progress-bar mode="determinate" [value]="((questionPage ) / questions.length) * 100">
+                    </mat-progress-bar>
+                </div>
+                <app-answers [questionPage]="questionPage" [title]="questions[questionPage].title"
+                    [selectedOptions]="selectedOptions[questionPage]" [answers]="questions[questionPage].options"
+                    (onChange)="activateForm()"></app-answers>
+                <div class="buttons">
+                    <button mat-raised-button [disabled]="!validForm" (click)="onSubmit()"
+                        class="button-blue">ENVIAR</button>
+                    <button mat-raised-button [disabled]="validForm" (click)="skipQuestion()"
+                        class="button-blue">SIGUIENTE</button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'responses'">
+            <app-results [selectedOptions]="selectedOptions" 
+            [questions]="questions"
+            [title]="title"></app-results>
+        </ng-container>
+    </ng-container>
     <mat-spinner *ngIf="!dataLoaded"></mat-spinner>
 </div>

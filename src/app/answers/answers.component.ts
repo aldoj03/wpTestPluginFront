@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-answers',
@@ -9,10 +9,18 @@ export class AnswersComponent implements OnInit {
 
   @Input() answers :Array<any> = [];
   @Input() title :String = '';
+  @Input() selectedOptions :any = '';
+  @Output() onChange= new EventEmitter();
+  @Input() questionPage:number=  0;
 
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+
+  change(){
+    this.onChange.emit(true)
   }
 
 }

@@ -11,13 +11,15 @@ import { ScoreComponent } from './score/score.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TestService } from './services/test.service';
+import { ResultsComponent } from './results/results.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestComponent,
     AnswersComponent,
-    ScoreComponent
+    ScoreComponent,
+    ResultsComponent,
   ],
   imports: [
     BrowserModule,

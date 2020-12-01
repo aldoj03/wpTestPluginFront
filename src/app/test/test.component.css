@@ -1,11 +1,4 @@
-.test_title{
 
-    text-align: center;
-    margin-top: 20px;
-    font-size: 1.8em;
-    color: rgb(82, 82, 82);
-
-}
 
 .test_time_container{
     display: flex;
@@ -58,16 +51,7 @@ app-score{
     height: 100%;
 }
 
-.answers_container{
-    margin: 20px 30px;
-    display: flex;
-    flex-direction: column;
-}
 
-.answers_container mat-radio-button{
-
-    margin: 8px 0;
-}
 mat-spinner{
 
     position: absolute;
@@ -76,4 +60,16 @@ mat-spinner{
     right: 0;
     bottom: 0;
     margin: auto;
+}
+
+.mat-progress-bar-fill::after{
+    background-color: orangered !important;
+}
+
+.time{
+    color: orangered
+}
+
+.test_time_container mat-icon{
+    color: orangered;
 }
