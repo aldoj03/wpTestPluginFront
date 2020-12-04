@@ -1,29 +1,37 @@
 .results_container{
     display: flex;
-    justify-content: c;
+    justify-content: center;
+    align-items: center;
 }
 .results_container > div{
     width: 40%;
 }
+
 .result_subtitle{
     text-align: center;
+    margin: 0;
 }
-
 .results_count > div{
     margin: 6px 8px;
     padding: 12px 20px;
     border-radius: 14px;
     font-weight: 500;
 }
-
+.chart_results_wrapper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+}
 .count_corrects{
-    border: 2px solid rgb(35, 128, 27);
-    color: rgb(35, 128, 27);
+    border: 2px solid  #009789;
+    color:  #009789;
 
 }
 .count_incorrects{
-    border: 2px solid rgb(165, 28, 40);
-    color: rgb(165, 28, 40);
+    border: 2px solid #ff342f;
+    color: #ff342f;
 
 }
 .count_no_resueltas{
@@ -75,3 +83,27 @@
     background-color: #E53B3B;
     background: linear-gradient(270deg, black 50%, transparent 50%), linear-gradient(0deg, black 50%, lightgray 50%)
   }
+
+  .chart_porcentaje{
+    position: absolute;
+    text-align: center;
+    z-index: 10;
+    color: #009789;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .chart_porcentaje strong{
+      font-size: 30px;
+  }
+
+  .chart_porcentaje span{
+    display: block;
+    font-size: 20px;
+    padding: 6px 12px;
+    margin-top: 6px;
+    border-radius: 4px;
+    color: rgb(94, 94, 94);
+    background: rgb(94 94 94 / 37%);
+}
+

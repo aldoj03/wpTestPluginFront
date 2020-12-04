@@ -1,6 +1,7 @@
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { TestService } from '../services/test.service';
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-test',
@@ -37,9 +38,9 @@ export class TestComponent implements OnInit {
   ngOnInit(): void {
     this.initTime();
 
-    // this.testService.getTest('17')
-    //   .pipe(map(val => JSON.parse(val.element_data)))
-    //   .subscribe(val => this.initQuestions(val))
+    this.testService.getTest('17')
+      .pipe(map(val => JSON.parse(val.element_data)))
+      .subscribe(val => this.initQuestions(val))
 
     const val = {
       "id": "18",
@@ -108,16 +109,19 @@ export class TestComponent implements OnInit {
     }
 
    
-    this.initQuestions(val.element_data);
+    // this.initQuestions(val.element_data);
 
   }
 
   initQuestions(val: any) {
+    console.log(val);
+    
     const random = val.orderRandom;
 
 
-    // this.questions = random ? [...val.question.sort(() => Math.random() - 0.5)] : [...val.question];
-    this.questions = val.question;
+    this.questions = random ? [...val.question.sort(() => Math.random() - 0.5)] : [...val.question];
+   
+    
 
     this.title = val.name;
     this.limitTime = val.time;
@@ -137,7 +141,10 @@ export class TestComponent implements OnInit {
     })
 
 
-    this.dataLoaded = true
+    setTimeout(() => {
+      
+      this.dataLoaded = true
+    }, 3000);
 
 
   }

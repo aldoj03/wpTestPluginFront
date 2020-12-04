@@ -35,7 +35,7 @@
 
 
 .incorrectOptionResult p{
-    color: #009789;
+    color: orangered;
 }
 .incorrectOptionResult .resultOption{
     color: orangered;
@@ -53,3 +53,9 @@
 .circle_number--correct{
     background: #009789;
 }   
+
+.buttons{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+}

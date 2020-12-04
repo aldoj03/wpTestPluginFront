@@ -1,9 +1,14 @@
 <div class="results_content">
     <h4 class="result_subtitle">Felicidades por haber completado la prueba!</h4>
-
     <div class="results_container">
-        <div id="myfirstchart" style="height: 250px;"></div>
+        <div class="chart_results_wrapper">
+            <div class="chart_porcentaje">
+                <strong>{{porcentaje}}%</strong>
+                <span>{{correctAnswers}} de {{results.length}}</span>
+            </div>
+            <div id="chartContainer" style="height: 200px; width: 300px;"></div>
         </div>
+        
         <div class="results_count">
             <div class="count_corrects">{{correctAnswers}} repuestas Correctas</div>
             <div class="count_incorrects">{{incorrectAnswers}} respuestas Incorrectas</div>
