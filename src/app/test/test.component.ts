@@ -38,9 +38,9 @@ export class TestComponent implements OnInit {
   ngOnInit(): void {
     this.initTime();
 
-    this.testService.getTest('17')
-      .pipe(map(val => JSON.parse(val.element_data)))
-      .subscribe(val => this.initQuestions(val))
+    // this.testService.getTest('17')
+    //   .pipe(map(val => JSON.parse(val.element_data)))
+    //   .subscribe(val => this.initQuestions(val))
 
     const val = {
       "id": "18",
@@ -103,13 +103,73 @@ export class TestComponent implements OnInit {
                 "type": false
               }
             ]
-          }
+          },
+          {
+            "id": "1",
+            "title": "Que vino primero la galiisna o el huevo",
+            "point": 32,
+            "options": [
+              {
+                "title": "la gallina",
+                "type": true
+              },
+              {
+                "title": "el huevo",
+                "type": false
+              }
+            ]
+          },
+          {
+            "id": "1",
+            "title": "Que vino primero la galiisna o el huevo",
+            "point": 32,
+            "options": [
+              {
+                "title": "la gallina",
+                "type": true
+              },
+              {
+                "title": "el huevo",
+                "type": false
+              }
+            ]
+          },
+          {
+            "id": "1",
+            "title": "Que vino primero la galiisna o el huevo",
+            "point": 32,
+            "options": [
+              {
+                "title": "la gallina",
+                "type": true
+              },
+              {
+                "title": "el huevo",
+                "type": false
+              }
+            ]
+          },
+          {
+            "id": "1",
+            "title": "Que vino primero la galiisna o el huevo",
+            "point": 32,
+            "options": [
+              {
+                "title": "la gallina",
+                "type": true
+              },
+              {
+                "title": "el huevo",
+                "type": false
+              }
+            ]
+          },
         ]
       }
     }
 
    
-    // this.initQuestions(val.element_data);
+    this.initQuestions(val.element_data);
 
   }
 

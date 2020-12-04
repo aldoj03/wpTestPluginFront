@@ -1,9 +1,9 @@
 <h2 class="test_title">Respuestas Test's de {{title}}</h2>
 
-<span>Página 1 de {{pages + 1}}</span>
+<span>Página {{page + 1}} de {{questionPages.length}}</span>
 
 <div class="content">
-    <div *ngFor="let question of questionPages[pages]; let i = index " class="question">
+    <div *ngFor="let question of questionPages[page]; let i = index " class="question">
         <div class="question_title">
             <div class="circle_number " [class.circle_number--correct]="question.correct">{{i + 1}}</div>
             <h3>{{question.title}}</h3>
@@ -18,9 +18,12 @@
         </div>
     </div>
     <div class="buttons">
-        <button mat-raised-button [disabled]="!validForm" (click)="onSubmit()"
-            class="button-blue">ANTERIOR</button>
-        <button mat-raised-button [disabled]="validForm" (click)="skipQuestion()"
+        <button mat-raised-button 
+            *ngIf="questionPages.length <= page + 1 " 
+            (click)="prevPage()"
+            class="button-blue">ANTERIOR</button>{{questionPages.length  }}{{ page}}
+        <button mat-raised-button [disabled]="validForm" 
+          *ngIf="questionPages.length > page + 1 " (click)="nextPage()"
             class="button-blue">SIGUIENTE</button>
     </div>
 </div>

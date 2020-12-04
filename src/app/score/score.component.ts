@@ -15,7 +15,7 @@ export class ScoreComponent implements OnInit, OnChanges {
   public incorrectAnswers = 0;
   public noAnswers = 0;
   public chart: any = null
-  public porcentaje: number = 0;
+  public porcentaje: number | String = 0;
   constructor() { }
 
   ngOnInit(): void {
@@ -72,7 +72,7 @@ export class ScoreComponent implements OnInit, OnChanges {
     });
 
     this.porcentaje = (this.correctAnswers * 100)   / this.results.length
-
+    this.porcentaje = this.porcentaje.toFixed(2)
     this.chart.render();
 
   }

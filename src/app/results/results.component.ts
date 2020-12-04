@@ -12,13 +12,14 @@ export class ResultsComponent implements OnInit {
 
   public questionsToShow: Array<any> = [];
   public questionPages: Array<Array<any>> = [[]];
-  public pages: number = 0;
+  public page: number = 0;
+  public totalPages: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
     this.showResults()
-    this.questionPages[0] = [null]
+    
   }
 
   showResults() {
@@ -47,24 +48,34 @@ export class ResultsComponent implements OnInit {
     console.log(this.questionPages);
 
 
-    const pages = Math.ceil(this.pages / 3);
 
+    let arrayLocal:Array<any> = []
 
-    this.questions.forEach((val, index) => {
+    this.questionsToShow.forEach((val, index) => {
 
-      if (index % 3 != 1) {
-
-        this.questionPages[0] = [...this.questionPages[0],val]
-        console.log(this.questionPages);
-        
+      if (index % 3 != 0 || index == 0) {
+        arrayLocal.push(val)
+        this.questionPages[this.totalPages] = arrayLocal
 
       } else {
-        this.pages++
+        this.totalPages ++
+        arrayLocal = []
       }
 
     })
 
+     console.log(this.questionPages);
      
 
   }
+
+  nextPage(){
+    this.page++
+
+  }
+  prevPage(){
+    this.page--
+  }
 }
+
+
