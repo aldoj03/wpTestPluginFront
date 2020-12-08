@@ -3,9 +3,32 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+html {
+    --scrollbarBG: #CFD8DC;
+    --thumbBG: #a3a7a8be;
+  }
+  *::-webkit-scrollbar {
+    width: 4px;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  }
+  *::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #0092eda8 ;
+    border-radius: 6px;
+  }
+  
 
 .button-blue{
     background-color:  #0092ed;
+    color: white  
+}
+.button-orange{
+    background-color:  orangered;
     color: white  
 }
 
@@ -20,6 +43,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .button-blue:hover{
     background-color:  orangered ;
+
+}
+.button-blue:hover{
+    background-color:  #0092ed ;
 
 }
 
@@ -61,4 +88,33 @@ background: #0092ed ;
 
 .question_title h3{
     margin: 0;
+}
+
+mat-radio-button{
+    width: fit-content;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #53535398;
+    background-color:#b3b3b31c;
+    min-width:250px;
+    transition: 300ms;
+    font-size-adjust: initial;
+}
+
+
+
+.mat-radio-checked{
+    border: 1px solid #0092ed ;
+    color: #0092ed;
+    font-weight: 600;
+}
+mat-radio-button:hover{
+    border-color: #0092ed;
+}
+mat-radio-button:hover .mat-radio-container .mat-radio-outer-circle {
+    border-color: #0092ed;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #0092ed;
 }

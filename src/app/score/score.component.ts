@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnChanges, EventEmitter, Output } from '@angular/core';
-import * as CanvasJS from '../../assets/js/canvasjs.min';
+declare const CanvasJS: any
+
 @Component({
   selector: 'app-score',
   templateUrl: './score.component.html',
@@ -10,6 +11,7 @@ export class ScoreComponent implements OnInit, OnChanges {
   @Input() results: Array<any> = [];
   @Input() questions: any;
   @Output() setAction = new EventEmitter();
+  @Output() reloadTest = new EventEmitter();
 
   public correctAnswers = 0;
   public incorrectAnswers = 0;
@@ -32,13 +34,13 @@ export class ScoreComponent implements OnInit, OnChanges {
 
   }
   calcResults() {
-    console.log(this.questions);
+    // console.log(this.questions);
 
     this.results.map((result, index) => {
       const optionsModel: Array<any> = this.questions[index].options;
 
       optionsModel.map(option => {
-        console.log(option);
+        // console.log(option);
 
         if (option.title == result.selected && option.type) this.correctAnswers++
         if (option.title == result.selected && !option.type) this.incorrectAnswers++
@@ -56,6 +58,7 @@ export class ScoreComponent implements OnInit, OnChanges {
       animationEnabled: true,
       data: [
         {
+          
           percentFormatString: "#0.##",
           toolTipContent: "{y} (#percent%)",
           type: "doughnut",
@@ -79,6 +82,11 @@ export class ScoreComponent implements OnInit, OnChanges {
 
   goToResponses() {
     this.setAction.emit('responses')
+  }
+
+
+  resetTest(){
+    this.reloadTest.emit(true)
   }
 
 }

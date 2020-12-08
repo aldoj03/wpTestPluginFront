@@ -73,3 +73,9 @@ mat-spinner{
 .test_time_container mat-icon{
     color: orangered;
 }
+app-results{
+    flex-direction: column;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}

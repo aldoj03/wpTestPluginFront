@@ -2,7 +2,10 @@
 
     margin: 16px
 }
-
+.page_number{
+    display: block;
+    text-align: center;
+}
 .resultOption{
     width: fit-content;
     padding: 15px;
@@ -58,4 +61,12 @@
     display: flex;
     position: relative;
     justify-content: space-between;
+}
+
+.buttons{
+    margin: 15px 0;
+}
+
+.next-btn, .score-btn{
+    margin-left: auto;
 }

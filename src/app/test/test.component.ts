@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { TestService } from '../services/test.service';
+import { BehaviorSubject } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 @Component({
@@ -15,8 +16,9 @@ export class TestComponent implements OnInit {
 
   public min: number = 0;
   public sec: number = 0;
+  public questionPageSubject: BehaviorSubject<number> = new BehaviorSubject(0);
   public questionPage: number = 0;
-  public limitTime: boolean = false;
+  public limitTime: String = '';
   public dataLoaded: boolean = false;
 
   public validForm: boolean = false;
@@ -36,152 +38,192 @@ export class TestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initTime();
 
-    // this.testService.getTest('17')
-    //   .pipe(map(val => JSON.parse(val.element_data)))
-    //   .subscribe(val => this.initQuestions(val))
+    
 
-    const val = {
-      "id": "18",
-      "name": "Matematicaas",
-      "session_data": "",
-      "element_data": {
-        "date": "11/19/20 a las 3:19pm",
-        "name": "Matematicaas",
-        "time": "30",
-        "categories": [
-          1,
-          3,
-          5
-        ],
-        "subcategories": [
-          1,
-          4,
-          5
-        ],
-        "maxlimit": 0,
-        "level": [
-          {
-            "low": true
-          },
-          {
-            "medium": false
-          },
-          {
-            "high": false
-          }
-        ],
-        "orderRandom": true,
-        "question": [
-          {
-            "id": "1",
-            "title": "Que vino primero la galiisna o el huevo",
-            "point": 32,
-            "options": [
-              {
-                "title": "la gallina",
-                "type": true
-              },
-              {
-                "title": "el huevo",
-                "type": false
-              }
-            ]
-          },
-          {
-            "id": "2",
-            "title": "Que vino primero la galiisna o el huevo",
-            "point": 32,
-            "options": [
-              {
-                "title": "la gallina",
-                "type": true
-              },
-              {
-                "title": "el huevo",
-                "type": false
-              }
-            ]
-          },
-          {
-            "id": "1",
-            "title": "Que vino primero la galiisna o el huevo",
-            "point": 32,
-            "options": [
-              {
-                "title": "la gallina",
-                "type": true
-              },
-              {
-                "title": "el huevo",
-                "type": false
-              }
-            ]
-          },
-          {
-            "id": "1",
-            "title": "Que vino primero la galiisna o el huevo",
-            "point": 32,
-            "options": [
-              {
-                "title": "la gallina",
-                "type": true
-              },
-              {
-                "title": "el huevo",
-                "type": false
-              }
-            ]
-          },
-          {
-            "id": "1",
-            "title": "Que vino primero la galiisna o el huevo",
-            "point": 32,
-            "options": [
-              {
-                "title": "la gallina",
-                "type": true
-              },
-              {
-                "title": "el huevo",
-                "type": false
-              }
-            ]
-          },
-          {
-            "id": "1",
-            "title": "Que vino primero la galiisna o el huevo",
-            "point": 32,
-            "options": [
-              {
-                "title": "la gallina",
-                "type": true
-              },
-              {
-                "title": "el huevo",
-                "type": false
-              }
-            ]
-          },
-        ]
-      }
-    }
-
-   
-    this.initQuestions(val.element_data);
+    this.startTest()
 
   }
 
+  startTest() {
+
+    // const val = {
+    //   "id": "18",
+    //   "name": "Matematicaas",
+    //   "session_data": "",
+    //   "element_data": {
+    //     "date": "11/19/20 a las 3:19pm",
+    //     "name": "Matematicaas",
+    //     "time": "00:30",
+    //     "categories": [
+    //       1,
+    //       3,
+    //       5
+    //     ],
+    //     "subcategories": [
+    //       1,
+    //       4,
+    //       5
+    //     ],
+    //     "maxlimit": 0,
+    //     "level": [
+    //       {
+    //         "low": true
+    //       },
+    //       {
+    //         "medium": false
+    //       },
+    //       {
+    //         "high": false
+    //       }
+    //     ],
+    //     "orderRandom": true,
+    //     "question": [
+    //       {
+    //         "id": "1",
+    //         "title": "(1)¿Cuáles de los siguientes triángulos, según sus medidas son rectángulos?",
+    //         "point": 32,
+    //         "options": [
+    //           {
+    //             "title": "5 cm, 12 cm, 13 cm ",
+    //             "type": true
+    //           },
+    //           {
+    //             "title": "7 cm, 4 cm, 6 cm",
+    //             "type": false
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "id": "2",
+    //         "title": "(2)7/5 + 2/3 - 1 =",
+    //         "point": 32,
+    //         "options": [
+    //           {
+    //             "title": "17/15",
+    //             "type": false
+    //           },
+    //           {
+    //             "title": "16/15",
+    //             "type": true
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "id": "3",
+    //         "title": "(3)¿A cuánto equivale π?",
+    //         "point": 32,
+    //         "options": [
+    //           {
+    //             "title": "3,141592",
+    //             "type": true
+    //           },
+    //           {
+    //             "title": "3,149215",
+    //             "type": false
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "id": "4",
+    //         "title": "(4)¿A cuánto equivale π?",
+    //         "point": 32,
+    //         "options": [
+    //           {
+    //             "title": "3,141592",
+    //             "type": true
+    //           },
+    //           {
+    //             "title": "3,149215",
+    //             "type": false
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "id": "5",
+    //         "title": "(5)¿A cuánto equivale π?",
+    //         "point": 32,
+    //         "options": [
+    //           {
+    //             "title": "3,141592",
+    //             "type": true
+    //           },
+    //           {
+    //             "title": "3,149215",
+    //             "type": false
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "id": "6",
+    //         "title": "(6)¿A cuánto equivale π?",
+    //         "point": 32,
+    //         "options": [
+    //           {
+    //             "title": "3,141592",
+    //             "type": true
+    //           },
+    //           {
+    //             "title": "3,149215",
+    //             "type": false
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "id": "7",
+    //         "title": "(7)¿A cuánto equivale π?",
+    //         "point": 32,
+    //         "options": [
+    //           {
+    //             "title": "3,141592",
+    //             "type": true
+    //           },
+    //           {
+    //             "title": "3,149215",
+    //             "type": false
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "id": "8",
+    //         "title": "(8)¿A cuánto equivale π?",
+    //         "point": 32,
+    //         "options": [
+    //           {
+    //             "title": "3,141592",
+    //             "type": true
+    //           },
+    //           {
+    //             "title": "3,149215",
+    //             "type": false
+    //           }
+    //         ]
+    //       },
+
+
+
+    //     ]
+    //   }
+    // }
+
+    this.testService.getTest('17')
+      .pipe(map(val => JSON.parse(val.element_data)))
+      .subscribe(val => this.initQuestions(val))
+
+    // this.initQuestions(val.element_data);
+
+  }
+
+  //prepare form questions
   initQuestions(val: any) {
     console.log(val);
-    
+
     const random = val.orderRandom;
 
 
     this.questions = random ? [...val.question.sort(() => Math.random() - 0.5)] : [...val.question];
-   
-    
+
+
 
     this.title = val.name;
     this.limitTime = val.time;
@@ -202,45 +244,47 @@ export class TestComponent implements OnInit {
 
 
     setTimeout(() => {
-      
+
       this.dataLoaded = true
     }, 3000);
+
+    this.initTime();
 
 
   }
 
   initTime() {
 
-    const end: any = new Date('12/17/2100 9:30 AM');
 
-    const _second = 1000;
-    const _minute = _second * 60;
-    const _hour = _minute * 60;
-    let timer: any = 0;
+    this.min = Number(this.limitTime.substr(0, 2))
+    this.sec = Number(this.limitTime.substr(3, 4))
+    //  this.questionPageSubject.unsubscribe()
+    this.questionPageSubject.subscribe(val => this.questionPage = val)
+    const interval = setInterval(() => {
 
-
-
-    timer = setInterval(() => {
-      const now: any = new Date();
-      const distance = end - now;
-      if (distance < 0) {
-
-        clearInterval(timer);
-        alert('expired')
-
-        return;
+      if (this.sec != 0) {
+        this.sec--
+      } else {
+        this.sec = 59
+        this.min--
       }
-      this.min = Math.floor((distance % _hour) / _minute);
-      this.sec = Math.floor((distance % _minute) / _second);
 
+      //test finished
+      if (this.min == 0 && this.sec == 0 || this.questionPage == this.questions.length) {
+        clearInterval(interval)
+        const reasson = this.questionPage == this.questions.length ? 'completed' : 'time expired'
+        this.finishTest(reasson)
+      }
 
-    }, 1000);
+    }, 400);
+
 
   }
 
   onSubmit() {
     this.validForm = false;
-    this.questionPage++
+    const newPageValue = this.questionPageSubject.value + 1
+    this.questionPageSubject.next(newPageValue)
 
 
   }
@@ -251,12 +295,44 @@ export class TestComponent implements OnInit {
   }
 
   skipQuestion() {
-    this.questionPage++
-    if(this.questionPage  == this.questions.length) console.log(this.selectedOptions);
+    const newPageValue = this.questionPageSubject.value + 1
+    this.questionPageSubject.next(newPageValue)
+    if (this.questionPageSubject.value == this.questions.length) console.log(this.selectedOptions);
   }
 
-  setAction(action:String){
+  //set action to switch
+  setAction(action: String) {
     this.action = action
+  }
+
+  resetTest(event: any) {
+    this.title = 'Esta es la pregunta';
+    this.action = 'test';
+
+    this.min = 0;
+    this.sec = 0;
+    this.questionPageSubject.next(0);
+    this.limitTime = '';
+    this.dataLoaded = false;
+
+    this.validForm = false;
+
+    this.optionsForm = new FormGroup({
+      options: new FormArray([])
+    });
+
+    this.selectedOptions = [];
+
+    this.questions = Array();
+    this.startTest()
+  }
+
+  finishTest(reasson: String) {
+
+    if (reasson == 'time expired') alert('Tiempo límite expirado')
+    this.questionPageSubject.next(this.questions.length)
+    this.questionPageSubject.unsubscribe()
+
   }
 
 }

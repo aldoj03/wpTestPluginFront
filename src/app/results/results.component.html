@@ -1,16 +1,17 @@
 <h2 class="test_title">Respuestas Test's de {{title}}</h2>
 
-<span>Página {{page + 1}} de {{questionPages.length}}</span>
+<span class="page_number">Página {{page + 1}} de {{questionPages.length}}</span>
 
 <div class="content">
     <div *ngFor="let question of questionPages[page]; let i = index " class="question">
         <div class="question_title">
-            <div class="circle_number " [class.circle_number--correct]="question.correct">{{i + 1}}</div>
+            <div class="circle_number " [class.circle_number--correct]="question.correct">{{question.id}}</div>
             <h3>{{question.title}}</h3>
         </div>
         <div  *ngIf="!question.correct" class="incorrectOptionResult">
             <p>Incorrecto</p>
-            <div class="resultOption"><span>X</span>{{question.selectedOption}}</div>
+            <div class="resultOption" *ngIf="question.selectedOption"><span>X</span>{{question.selectedOption}}</div>
+            <div class="resultOption" *ngIf="!question.selectedOption"><span>X</span>Sin respuesta</div>
         </div>
         <div  class="correctOptionResult">
             <p>Correcto</p>
@@ -19,11 +20,14 @@
     </div>
     <div class="buttons">
         <button mat-raised-button 
-            *ngIf="questionPages.length <= page + 1 " 
+            *ngIf="page + 1 <= questionPages.length && page != 0   " 
             (click)="prevPage()"
-            class="button-blue">ANTERIOR</button>{{questionPages.length  }}{{ page}}
-        <button mat-raised-button [disabled]="validForm" 
-          *ngIf="questionPages.length > page + 1 " (click)="nextPage()"
-            class="button-blue">SIGUIENTE</button>
+            class="button-blue">ANTERIOR</button>
+        <button mat-raised-button 
+          *ngIf=" page + 1 < questionPages.length  " (click)="nextPage()"
+            class="button-blue next-btn">SIGUIENTE</button>
+        <button mat-raised-button 
+          *ngIf=" page + 1 == questionPages.length  " (click)="goScore()"
+            class="button-orange score-btn">VER PUNTUACIÓN</button>
     </div>
 </div>

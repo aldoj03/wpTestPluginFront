@@ -1,5 +1,6 @@
 <div class="results_content">
-    <h4 class="result_subtitle">Felicidades por haber completado la prueba!</h4>
+    <h4 class="result_subtitle" *ngIf="porcentaje > 70">Felicidades por haber completado la prueba!</h4>
+    <h4 class="result_subtitle" *ngIf="porcentaje < 70">Lo sentimos no has conseguido completar la prueba!</h4>
     <div class="results_container">
         <div class="chart_results_wrapper">
             <div class="chart_porcentaje">
@@ -18,13 +19,13 @@
 
     <div class="reuslts_conclution">
         <h2>El procentaje mínimo de aporbación es del 70%</h2>
-        <p>¡Lo siento, tu resultado debe ser mejor, para poder ganar!</p>
+        <p *ngIf="porcentaje < 70">¡Lo siento, tu resultado debe ser mejor, para poder ganar!</p>
         <button mat-raised-button class="button-blue" type="button" (click)="goToResponses()">QUIERO VER MIS RESPUESTAS</button>
-        <button mat-raised-button class="button-blue" type="button">QUIERO ESTUDIAR UN POCO MÁS</button>
+        <button mat-raised-button class="button-blue" type="button" >QUIERO ESTUDIAR UN POCO MÁS</button>
     </div>
     <div class="footer_buttons">
         <button mat-raised-button class="button-blue"  type="button">IMPRIMIR</button>
-        <button mat-raised-button class="button-blue" disabled type="button">REPETIR TEST'S</button>
+        <button mat-raised-button class="button-blue"  type="button" (click)="resetTest()">REPETIR TEST'S</button>
         <button mat-raised-button class="button-blue" disabled type="button">ENVIAR EMAIL</button>
         <button mat-raised-button class="button-blue" disabled type="button">COMPARTIR</button>
     </div>

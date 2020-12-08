@@ -6,7 +6,8 @@
             <app-score *ngIf="questionPage  == questions.length" 
             [results]="selectedOptions" 
             [questions]="questions"
-            (setAction)="setAction( $event )">
+            (setAction)="setAction( $event )"
+            (reloadTest)="resetTest( $event )">
             </app-score>
             <div class="test_content" *ngIf="dataLoaded && questionPage  != questions.length">
                 <div class="test_time_container" *ngIf="limitTime">
@@ -32,9 +33,11 @@
             </div>
         </ng-container>
         <ng-container *ngSwitchCase="'responses'">
-            <app-results [selectedOptions]="selectedOptions" 
+            <app-results 
+            [selectedOptions]="selectedOptions" 
             [questions]="questions"
-            [title]="title"></app-results>
+            [title]="title"
+            (scoreEmitter)="setAction( $event )"></app-results>
         </ng-container>
     </ng-container>
 </div>
