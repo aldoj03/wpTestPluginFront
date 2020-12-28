@@ -44,7 +44,7 @@
     text-align: center;
 }
 .reuslts_conclution button{
-    margin: 0 18px;
+    margin: 6px 18px;
 }
 
 .results_content{
@@ -59,7 +59,7 @@
 }
 
 .footer_buttons button{
-    margin: 0 18px;
+    margin: 6px 18px;
 }
 
 .circle {
@@ -107,3 +107,21 @@
     background: rgb(94 94 94 / 37%);
 }
 
+@media(max-width:800px){
+
+    .results_container{
+        flex-wrap: wrap;
+        margin-top:30px; 
+        margin-bottom:16px;
+    }
+
+    .results_container  div.results_count{
+        width: 100%;
+    }
+
+    .results_container div.chart_results_wrapper{
+        width: 100%;
+    }
+
+
+}

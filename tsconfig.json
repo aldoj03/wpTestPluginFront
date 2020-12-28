@@ -20,7 +20,6 @@
       "es2018",
       "dom"
     ],
-    "types" : ["canvasjs"]
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

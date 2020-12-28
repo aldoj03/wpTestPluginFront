@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TestService } from '../services/test.service';
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -19,15 +20,21 @@ export class ResultsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.showResults()
+   
+      this.showResults();
+
+   
     
   }
 
   showResults() {
 
     this.questions.forEach((question, index) => {
-      const options: Array<any> = question.options;
-      const correctOption = options.filter(val => val.type)[0].title
+      console.log(question);
+      const options: Array<any> = question.respuestas;
+      console.log(options);
+      
+      const correctOption = options.filter(val => val.type)[0].texto
 
       const selectedOption = this.selectedOptions[index].selected
       const id = index + 1

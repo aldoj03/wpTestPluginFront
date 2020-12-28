@@ -8,7 +8,7 @@
 <mat-radio-group [(ngModel)]="selectedOptions.selected" (change)="change()">
     <mat-radio-button class="example-radio-button"  *ngFor="let option of answers; index as i"
         [value]="option.title">
-        {{option.title}}
+        {{option.texto}}
     </mat-radio-button>
 </mat-radio-group>
 </div>

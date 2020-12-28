@@ -3,11 +3,12 @@
         <ng-container *ngSwitchCase="'test'">
 
             <h2 class="test_title">Test de {{title}}</h2>
-            <app-score *ngIf="questionPage  == questions.length" 
+            <app-score *ngIf="questionPage  == questions.length && dataLoaded" 
             [results]="selectedOptions" 
             [questions]="questions"
             (setAction)="setAction( $event )"
-            (reloadTest)="resetTest( $event )">
+            (reloadTest)="resetTest( $event )"
+            >
             </app-score>
             <div class="test_content" *ngIf="dataLoaded && questionPage  != questions.length">
                 <div class="test_time_container" *ngIf="limitTime">
@@ -21,8 +22,8 @@
                     <mat-progress-bar mode="determinate" [value]="((questionPage ) / questions.length) * 100">
                     </mat-progress-bar>
                 </div>
-                <app-answers [questionPage]="questionPage" [title]="questions[questionPage].title"
-                    [selectedOptions]="selectedOptions[questionPage]" [answers]="questions[questionPage].options"
+                <app-answers [questionPage]="questionPage" [title]="questions[questionPage].pregunta.title"
+                    [selectedOptions]="selectedOptions[questionPage]" [answers]="questions[questionPage].respuestas"
                     (onChange)="activateForm()"></app-answers>
                 <div class="buttons">
                     <button mat-raised-button [disabled]="!validForm" (click)="onSubmit()"
@@ -37,7 +38,8 @@
             [selectedOptions]="selectedOptions" 
             [questions]="questions"
             [title]="title"
-            (scoreEmitter)="setAction( $event )"></app-results>
+            (scoreEmitter)="setAction( $event )"
+            ></app-results>
         </ng-container>
     </ng-container>
 </div>

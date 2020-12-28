@@ -17,6 +17,7 @@ export class TestComponent implements OnInit {
   public min: number = 0;
   public sec: number = 0;
   public questionPageSubject: BehaviorSubject<number> = new BehaviorSubject(0);
+  public quetionSubscription:any;
   public questionPage: number = 0;
   public limitTime: String = '';
   public dataLoaded: boolean = false;
@@ -54,7 +55,7 @@ export class TestComponent implements OnInit {
     //   "element_data": {
     //     "date": "11/19/20 a las 3:19pm",
     //     "name": "Matematicaas",
-    //     "time": "00:30",
+    //     "time": "10:30",
     //     "categories": [
     //       1,
     //       3,
@@ -206,8 +207,10 @@ export class TestComponent implements OnInit {
     //   }
     // }
 
-    this.testService.getTest('17')
-      .pipe(map(val => JSON.parse(val.element_data)))
+    // this.testService.getTest('2')
+    //   .pipe(map(val => JSON.parse(val.element_data)))
+    //   .subscribe(val => this.initQuestions(val))
+    this.testService.getTest('1')
       .subscribe(val => this.initQuestions(val))
 
     // this.initQuestions(val.element_data);
@@ -218,25 +221,28 @@ export class TestComponent implements OnInit {
   initQuestions(val: any) {
     console.log(val);
 
-    const random = val.orderRandom;
+    const test = val.test;
+    const questions = val.questions[0]
+
+    const random = test.orderRandom;
 
 
-    this.questions = random ? [...val.question.sort(() => Math.random() - 0.5)] : [...val.question];
+    this.questions = random ? [...questions.sort(() => Math.random() - 0.5)] : [...questions];
 
 
 
-    this.title = val.name;
-    this.limitTime = val.time;
+    this.title = test.name;
+    this.limitTime = test.limittimefortest;
 
 
 
     let questionsArray = new FormArray([]);
     this.questions.map(question => {
       let optionsArray = new FormArray([]);
-      const options: Array<any> = question['options'];
+      const options: Array<any> = question.respuestas;
       this.selectedOptions.push({ selected: null });
       options.map(option => {
-        optionsArray.push(new FormControl(option['title']))
+        optionsArray.push(new FormControl(option['texto']))
       });
       questionsArray.push(optionsArray)
       this.optionsForm.controls.options = questionsArray
@@ -259,7 +265,7 @@ export class TestComponent implements OnInit {
     this.min = Number(this.limitTime.substr(0, 2))
     this.sec = Number(this.limitTime.substr(3, 4))
     //  this.questionPageSubject.unsubscribe()
-    this.questionPageSubject.subscribe(val => this.questionPage = val)
+    this.quetionSubscription = this.questionPageSubject.subscribe(val => this.questionPage = val)
     const interval = setInterval(() => {
 
       if (this.sec != 0) {
@@ -276,7 +282,7 @@ export class TestComponent implements OnInit {
         this.finishTest(reasson)
       }
 
-    }, 400);
+    }, 1000);
 
 
   }
@@ -329,10 +335,11 @@ export class TestComponent implements OnInit {
 
   finishTest(reasson: String) {
 
+    
     if (reasson == 'time expired') alert('Tiempo límite expirado')
     this.questionPageSubject.next(this.questions.length)
-    this.questionPageSubject.unsubscribe()
-
+   this.quetionSubscription?.unsubscribe()
   }
 
+  
 }

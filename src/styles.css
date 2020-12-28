@@ -2,7 +2,6 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
 html {
     --scrollbarBG: #CFD8DC;
     --thumbBG: #a3a7a8be;
@@ -13,6 +12,7 @@ html {
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    box-sizing: border-box;
   }
   *::-webkit-scrollbar-track {
     background: var(--scrollbarBG);

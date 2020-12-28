@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnChanges, EventEmitter, Output } from '@angular/core';
+import { TestService } from '../services/test.service';
 declare const CanvasJS: any
 
 @Component({
@@ -18,14 +19,18 @@ export class ScoreComponent implements OnInit, OnChanges {
   public noAnswers = 0;
   public chart: any = null
   public porcentaje: number | String = 0;
-  constructor() { }
+
+
+  constructor(private testService: TestService) {
+
+  }
 
   ngOnInit(): void {
 
-
-
-    this.calcResults();
-
+    this.testService.saveTest('0').subscribe(val => {
+      console.log(val);
+      this.calcResults();
+    }, err => console.log(err));
 
   }
 
@@ -34,35 +39,37 @@ export class ScoreComponent implements OnInit, OnChanges {
 
   }
   calcResults() {
-    // console.log(this.questions);
 
+    
+    
     this.results.map((result, index) => {
-      const optionsModel: Array<any> = this.questions[index].options;
-
+      const optionsModel: Array<any> = this.questions[index].respuestas;
+      
       optionsModel.map(option => {
+        console.log(option);
         // console.log(option);
 
-        if (option.title == result.selected && option.type) this.correctAnswers++
-        if (option.title == result.selected && !option.type) this.incorrectAnswers++
+        if (option.texto == result.selected && option.checked == 'checked') this.correctAnswers++
+        if (option.texto == result.selected && option.checked != 'checked') this.incorrectAnswers++
       })
 
       if (result.selected == null) this.noAnswers++
     })
 
-      this.paintChart()
+    this.paintChart()
 
   }
 
-  paintChart(){
+  paintChart() {
     this.chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
       data: [
         {
-          
+
           percentFormatString: "#0.##",
           toolTipContent: "{y} (#percent%)",
           type: "doughnut",
-          startAngle:  -90,
+          startAngle: -90,
           dataPoints: [
             { y: this.correctAnswers, name: "Correctas", legendText: "Correctas", color: '#009789' },
             { y: this.incorrectAnswers, name: "Incorrectas", legendText: "Incorrectas", color: ' #ff342f' },
@@ -74,7 +81,7 @@ export class ScoreComponent implements OnInit, OnChanges {
       ]
     });
 
-    this.porcentaje = (this.correctAnswers * 100)   / this.results.length
+    this.porcentaje = (this.correctAnswers * 100) / this.results.length
     this.porcentaje = this.porcentaje.toFixed(2)
     this.chart.render();
 
@@ -85,7 +92,7 @@ export class ScoreComponent implements OnInit, OnChanges {
   }
 
 
-  resetTest(){
+  resetTest() {
     this.reloadTest.emit(true)
   }
 
