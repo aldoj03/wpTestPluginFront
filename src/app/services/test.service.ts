@@ -8,6 +8,8 @@ import { environment } from '../../environments/environment'
 })
 export class TestService {
 
+  public testSaved: boolean = false
+
   public ulrBase: String = '';
 
   constructor(
@@ -38,4 +40,16 @@ export class TestService {
     return this.httpClient.post<any>(endPoint, data)
 
   }
+
+  
+  public set setSavedTest(v : boolean) {
+    this.testSaved = v;
+  }
+
+  
+  public get getSavedTest() : boolean {
+    return this.testSaved;
+  }
+  
+
 }

@@ -22,7 +22,7 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
   public chart: any = null
   public resultsSaved: boolean = false
   public porcentaje: number | String = 0;
-  public saveSucription: Subscription | null = null;
+  public saveSubscription: Subscription | null = null;
 
 
   constructor(private testService: TestService) {
@@ -31,7 +31,6 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     // console.log(this.aprovePercentage);
-
 
 
     this.calcResults();
@@ -75,14 +74,21 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
       "session_data": "asd"
     };
 
-    console.log(data);
-    this.saveSucription = this.testService.saveTest('1', data).subscribe(val => {
-      if (val.status = '200') {
-        this.resultsSaved = true
-        setTimeout(() => this.paintChart(), 500);
 
-      }
-    }, err => console.log(err));
+    if(!this.testService.getSavedTest){
+
+      this.saveSubscription = this.testService.saveTest('1', data).subscribe(val => {
+        if (val.status = '200') {
+          this.resultsSaved = true
+          this.testService.setSavedTest = true
+          setTimeout(() => this.paintChart(), 500);
+  
+        }
+      }, err => console.log(err));
+    }else{
+      this.resultsSaved = true
+      setTimeout(() => this.paintChart(), 500);
+    }
 
   }
 
@@ -119,11 +125,12 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
 
 
   resetTest() {
+    this.testService.setSavedTest = false
     this.reloadTest.emit(true)
   }
 
   ngOnDestroy() {
-    if (this.saveSucription) this.saveSucription.unsubscribe()
+    if (this.saveSubscription) this.saveSubscription.unsubscribe()
   }
 
 }
