@@ -70,3 +70,7 @@
 .next-btn, .score-btn{
     margin-left: auto;
 }
+
+.explicacion strong{
+    font-weight: 500;
+}

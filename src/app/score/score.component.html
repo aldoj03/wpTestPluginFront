@@ -1,6 +1,6 @@
-<div class="results_content">
-    <h4 class="result_subtitle" *ngIf="porcentaje > 70">Felicidades por haber completado la prueba!</h4>
-    <h4 class="result_subtitle" *ngIf="porcentaje < 70">Lo sentimos no has conseguido completar la prueba!</h4>
+<div class="results_content" *ngIf="resultsSaved">
+    <h4 class="result_subtitle" *ngIf="porcentaje > aprovePercentage">Felicidades por haber completado la prueba!</h4>
+    <h4 class="result_subtitle" *ngIf="porcentaje < aprovePercentage">Lo sentimos no has conseguido completar la prueba!</h4>
     <div class="results_container">
         <div class="chart_results_wrapper">
             <div class="chart_porcentaje">
@@ -18,8 +18,8 @@
     </div>
 
     <div class="reuslts_conclution">
-        <h2>El procentaje mínimo de aporbación es del 70%</h2>
-        <p *ngIf="porcentaje < 70">¡Lo siento, tu resultado debe ser mejor, para poder ganar!</p>
+        <h2 *ngIf="porcentaje < aprovePercentage" >El procentaje mínimo de aprobación es del {{aprovePercentage}}%</h2>
+        <p *ngIf="porcentaje < aprovePercentage">¡Lo siento, tu resultado debe ser mejor, para poder ganar!</p>
         <button mat-raised-button class="button-blue" type="button" (click)="goToResponses()">QUIERO VER MIS RESPUESTAS</button>
         <button mat-raised-button class="button-blue" type="button" >QUIERO ESTUDIAR UN POCO MÁS</button>
     </div>
@@ -30,3 +30,4 @@
         <button mat-raised-button class="button-blue" disabled type="button">COMPARTIR</button>
     </div>
 </div>
+<mat-spinner *ngIf="!resultsSaved"></mat-spinner>

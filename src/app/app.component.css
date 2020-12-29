@@ -28,7 +28,8 @@ header h1{
     margin: 0;
 }
 app-test{
-    height: 100%;
+    /* min-height: 100%; */
+    flex: 1;
 }
 
 @media (max-width:800px){

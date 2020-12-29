@@ -19,6 +19,8 @@ export class TestComponent implements OnInit {
   public questionPageSubject: BehaviorSubject<number> = new BehaviorSubject(0);
   public quetionSubscription:any;
   public questionPage: number = 0;
+  public pointsForQuestion: number = 0;
+  public pointporcentaje: number = 0;
   public limitTime: String = '';
   public dataLoaded: boolean = false;
 
@@ -219,20 +221,23 @@ export class TestComponent implements OnInit {
 
   //prepare form questions
   initQuestions(val: any) {
-    console.log(val);
 
+    console.log(val);
+    
     const test = val.test;
+    if(!val.questions) console.log('No hay preguntas');
+    this.pointsForQuestion = test.pointsForQuestion
     const questions = val.questions[0]
 
-    const random = test.orderRandom;
+    const random = test.ordenAleatorio == 'true' ? true : false;
 
-
+    this.pointporcentaje = test.pointporcentaje
     this.questions = random ? [...questions.sort(() => Math.random() - 0.5)] : [...questions];
 
 
 
     this.title = test.name;
-    this.limitTime = test.limittimefortest;
+    this.limitTime = test.limitTimeTotalTest == 'true' &&  test.limitTimeCheck == 'true' ? test.inputTestTotalExam : '';
 
 
 
@@ -254,7 +259,7 @@ export class TestComponent implements OnInit {
       this.dataLoaded = true
     }, 3000);
 
-    this.initTime();
+    if(test.inputTestTotalExam) this.initTime();
 
 
   }

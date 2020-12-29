@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { TestService } from '../services/test.service';
 declare const CanvasJS: any
 
@@ -7,10 +8,11 @@ declare const CanvasJS: any
   templateUrl: './score.component.html',
   styleUrls: ['./score.component.css']
 })
-export class ScoreComponent implements OnInit, OnChanges {
+export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() results: Array<any> = [];
   @Input() questions: any;
+  @Input() aprovePercentage: number = 0;
   @Output() setAction = new EventEmitter();
   @Output() reloadTest = new EventEmitter();
 
@@ -18,7 +20,9 @@ export class ScoreComponent implements OnInit, OnChanges {
   public incorrectAnswers = 0;
   public noAnswers = 0;
   public chart: any = null
+  public resultsSaved: boolean = false
   public porcentaje: number | String = 0;
+  public saveSucription: Subscription | null = null;
 
 
   constructor(private testService: TestService) {
@@ -26,11 +30,12 @@ export class ScoreComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    // console.log(this.aprovePercentage);
 
-    this.testService.saveTest('0').subscribe(val => {
-      console.log(val);
-      this.calcResults();
-    }, err => console.log(err));
+
+
+    this.calcResults();
+
 
   }
 
@@ -40,14 +45,13 @@ export class ScoreComponent implements OnInit, OnChanges {
   }
   calcResults() {
 
-    
-    
+
+
     this.results.map((result, index) => {
       const optionsModel: Array<any> = this.questions[index].respuestas;
-      
+
       optionsModel.map(option => {
-        console.log(option);
-        // console.log(option);
+
 
         if (option.texto == result.selected && option.checked == 'checked') this.correctAnswers++
         if (option.texto == result.selected && option.checked != 'checked') this.incorrectAnswers++
@@ -55,8 +59,30 @@ export class ScoreComponent implements OnInit, OnChanges {
 
       if (result.selected == null) this.noAnswers++
     })
+    this.porcentaje = (this.correctAnswers * 100) / this.results.length
+    this.porcentaje = this.porcentaje.toFixed(2)
 
-    this.paintChart()
+    const dateObj = new Date()
+    const date = `${dateObj.getDay()}/${dateObj.getMonth()}/${dateObj.getFullYear()} a las ${dateObj.getMinutes()}:${dateObj.getHours()}`
+    
+    const data = {
+      "id_user": 1,
+      "id_test": 1,
+      "date": date,
+      "attemps": 1,
+      "completed": this.porcentaje,
+      "max_performance": 1,
+      "session_data": "asd"
+    };
+
+    console.log(data);
+    this.saveSucription = this.testService.saveTest('1', data).subscribe(val => {
+      if (val.status = '200') {
+        this.resultsSaved = true
+        setTimeout(() => this.paintChart(), 500);
+
+      }
+    }, err => console.log(err));
 
   }
 
@@ -81,9 +107,9 @@ export class ScoreComponent implements OnInit, OnChanges {
       ]
     });
 
-    this.porcentaje = (this.correctAnswers * 100) / this.results.length
-    this.porcentaje = this.porcentaje.toFixed(2)
+
     this.chart.render();
+
 
   }
 
@@ -94,6 +120,10 @@ export class ScoreComponent implements OnInit, OnChanges {
 
   resetTest() {
     this.reloadTest.emit(true)
+  }
+
+  ngOnDestroy() {
+    if (this.saveSucription) this.saveSucription.unsubscribe()
   }
 
 }

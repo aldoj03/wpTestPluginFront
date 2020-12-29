@@ -12,6 +12,7 @@ export class AnswersComponent implements OnInit {
   @Input() selectedOptions :any = '';
   @Output() onChange= new EventEmitter();
   @Input() questionPage:number=  0;
+  @Input() img:String =  '';
 
   constructor() { }
 

@@ -12,7 +12,7 @@ export class TestService {
 
   constructor(
     private httpClient: HttpClient,
-  ) { 
+  ) {
     this.ulrBase = environment.apiURl2
   }
 
@@ -22,30 +22,20 @@ export class TestService {
       id
     };
 
-    const endPoint =  this.ulrBase + 'testdata/' + id;
+    const endPoint = this.ulrBase + 'testdata/' + id;
     return this.httpClient.get<any>(endPoint)
 
   }
-  saveTest(id: string) {
+  saveTest(id: string, data: any) {
 
-    const body = {
-      "id_user": 1,
-      "id_test": 12,
-      "date": "4123-02-03",
-      "attemps": 1,
-      "completed": 2,
-      "max_performance": 1,
-      "session_data": "asd"
-    };
-
-    const endPoint =  this.ulrBase + 'results';
+    const endPoint = this.ulrBase + 'results';
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        'Content-Type': 'application/json',
       })
     };
 
-    return this.httpClient.post<any>('http://localhost/wordpress/wp-json/wpcode/v1/results', body)
+    return this.httpClient.post<any>(endPoint, data)
 
   }
 }

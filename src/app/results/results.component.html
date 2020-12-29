@@ -17,6 +17,10 @@
             <p>Correcto</p>
             <div class="resultOption"><span>✓</span>{{question.correctOption}}</div>
         </div>
+        <div class="explicacion" *ngIf="!question.correct && question.explicacion">
+            <p><strong>Razón:</strong> {{question.explicacion}}
+            </p>
+        </div>
     </div>
     <div class="buttons">
         <button mat-raised-button 

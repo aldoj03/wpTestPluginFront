@@ -107,6 +107,7 @@ mat-radio-button{
     border: 1px solid #0092ed ;
     color: #0092ed;
     font-weight: 600;
+    background: transparent;
 }
 mat-radio-button:hover{
     border-color: #0092ed;
@@ -117,4 +118,25 @@ mat-radio-button:hover .mat-radio-container .mat-radio-outer-circle {
 
 .mat-progress-spinner circle, .mat-spinner circle {
     stroke: #0092ed;
+}
+
+* {
+    user-select: none;
+  }
+  *::selection {
+    background: none;
+  }
+  *::-moz-selection {
+    background: none;
+  }
+
+  
+mat-spinner{
+
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 }

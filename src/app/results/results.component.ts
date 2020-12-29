@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { TestService } from '../services/test.service';
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.css']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
 
   @Input() selectedOptions: Array<any> = [];
   @Input() questions: Array<any> = [];
@@ -20,31 +20,47 @@ export class ResultsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-   
-      this.showResults();
+    document.oncontextmenu = () => false
+    this.showResults();
 
-   
-    
+    document.addEventListener("copy", this.disabledCopyHandler, false);
+
   }
 
+  ngOnDestroy() {
+    document.oncontextmenu = () => true
+    document.removeEventListener("copy", this.disabledCopyHandler)
+    console.log('exit');
+
+  }
+
+  disabledCopyHandler(evt: any) {
+    // Change the copied text if you want
+    alert('No es posible copiar.');
+    evt.clipboardData.setData("text/plain", "No es posible copiar.");
+
+    // Prevent the default copy action
+    evt.preventDefault();
+  }
   showResults() {
 
     this.questions.forEach((question, index) => {
-      console.log(question);
+      // console.log(question);
       const options: Array<any> = question.respuestas;
-      console.log(options);
-      
-      const correctOption = options.filter(val => val.type)[0].texto
+      // console.log(options);
+
+      const correctOption = options.filter(val => val.checked == 'checked')[0].texto
 
       const selectedOption = this.selectedOptions[index].selected
       const id = index + 1
       const correct = correctOption == selectedOption ? true : false
       this.questionsToShow.push({
-        title: question.title,
+        title: question.pregunta.title,
         correctOption,
         selectedOption,
         correct,
-        id
+        id,
+        explicacion: question.wptestquestionexplication
       });
     })
 
@@ -54,41 +70,39 @@ export class ResultsComponent implements OnInit {
 
 
   sortQuestionsPerPage() {
-    console.log(this.questionPages);
 
 
 
-    let arrayLocal:Array<any> = []
+    let arrayLocal: Array<any> = []
 
     this.questionsToShow.forEach((val, index) => {
 
-      if ((index + 1) % 3 != 0 || index == 0) {
+      if (index % 3 != 0 || index == 0) {
         arrayLocal.push(val)
         this.questionPages[this.totalPages] = arrayLocal
 
       } else {
-        this.totalPages ++
+        this.totalPages++
+        arrayLocal = []
         arrayLocal.push(val)
         this.questionPages[this.totalPages] = arrayLocal
-        arrayLocal = []
+
       }
 
     })
 
-     console.log(this.questionPages);
-     
 
   }
 
-  nextPage(){
+  nextPage() {
     this.page++
 
   }
-  prevPage(){
+  prevPage() {
     this.page--
   }
 
-  goScore(){
+  goScore() {
     this.scoreEmitter.emit('test')
   }
 }

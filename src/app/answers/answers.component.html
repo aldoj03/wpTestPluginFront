@@ -2,13 +2,22 @@
     <div class="circle_number">
         {{questionPage + 1}}
     </div>
-        <h3>{{title}}</h3>
+    <h3>{{title}}</h3>
 </div>
-<div class="answers_container" >
-<mat-radio-group [(ngModel)]="selectedOptions.selected" (change)="change()">
-    <mat-radio-button class="example-radio-button"  *ngFor="let option of answers; index as i"
-        [value]="option.title">
-        {{option.texto}}
-    </mat-radio-button>
-</mat-radio-group>
+<div class="question_img_container">
+    <img *ngIf="!img.includes('placeholder-image')" [src]="img" alt="">
+</div>
+<div class="answers_container">
+    <mat-radio-group [(ngModel)]="selectedOptions.selected" (change)="change()">
+        <ng-container *ngFor="let option of answers; index as i">
+            <mat-radio-button class="example-radio-button" 
+                *ngIf="option.texto"
+                [value]="option.texto">
+                {{option.texto}}
+            </mat-radio-button>
+            <div *ngIf="!option.img.includes('placeholder-image') && option.img" class="img_answer_container">
+                <img [src]="option.img" alt="">
+            </div>
+        </ng-container>
+    </mat-radio-group>
 </div>
