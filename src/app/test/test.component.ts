@@ -212,8 +212,15 @@ export class TestComponent implements OnInit {
     // this.testService.getTest('2')
     //   .pipe(map(val => JSON.parse(val.element_data)))
     //   .subscribe(val => this.initQuestions(val))
-    this.testService.getTest('1')
-      .subscribe(val => this.initQuestions(val))
+    const idtest = window.localStorage.getItem('idtest')
+    if(idtest){
+
+      this.testService.getTest(idtest)
+        .subscribe(val => this.initQuestions(val))
+    }else{
+      console.log('No hay test');
+      
+    }
 
     // this.initQuestions(val.element_data);
 

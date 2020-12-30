@@ -76,8 +76,10 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
 
 
     if(!this.testService.getSavedTest){
+    const idtest = window.localStorage.getItem('idtest')
+    if(idtest){
 
-      this.saveSubscription = this.testService.saveTest('1', data).subscribe(val => {
+      this.saveSubscription = this.testService.saveTest(idtest, data).subscribe(val => {
         if (val.status = '200') {
           this.resultsSaved = true
           this.testService.setSavedTest = true
@@ -85,6 +87,8 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
   
         }
       }, err => console.log(err));
+    }
+
     }else{
       this.resultsSaved = true
       setTimeout(() => this.paintChart(), 500);
