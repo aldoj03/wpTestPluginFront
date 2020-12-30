@@ -27,8 +27,9 @@ export class TestService {
     const body = {
       id
     };
-
+    
     const endPoint = this.ulrBase + 'testdata/' + id;
+    console.log(endPoint);
     return this.httpClient.get<any>(endPoint)
 
   }

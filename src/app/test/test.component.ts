@@ -266,7 +266,10 @@ export class TestComponent implements OnInit {
       this.dataLoaded = true
     }, 3000);
 
-    if(test.inputTestTotalExam) this.initTime();
+
+    this.quetionSubscription = this.questionPageSubject.subscribe(val => this.questionPage = val)
+
+    if(this.limitTime) this.initTime();
 
 
   }
@@ -277,7 +280,6 @@ export class TestComponent implements OnInit {
     this.min = Number(this.limitTime.substr(0, 2))
     this.sec = Number(this.limitTime.substr(3, 4))
     //  this.questionPageSubject.unsubscribe()
-    this.quetionSubscription = this.questionPageSubject.subscribe(val => this.questionPage = val)
     const interval = setInterval(() => {
 
       if (this.sec != 0) {
