@@ -15,7 +15,11 @@ export class TestService {
   constructor(
     private httpClient: HttpClient,
   ) {
-    this.ulrBase = environment.apiURl2
+    if(environment.apiURl2){
+      this.ulrBase = environment.apiURl2
+    }else{
+      alert('Error api url')
+    }
   }
 
   getTest(id: string) {
