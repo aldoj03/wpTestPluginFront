@@ -12,7 +12,7 @@
         <ng-container *ngFor="let option of answers; index as i">
             <mat-radio-button class="example-radio-button" 
                 *ngIf="option.texto"
-                [value]="option.texto">
+                [value]="i">
                 {{option.texto}}
             </mat-radio-button>
             <div *ngIf="!option.img.includes('placeholder-image') && option.img" class="img_answer_container">

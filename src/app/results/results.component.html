@@ -10,12 +10,12 @@
         </div>
         <div  *ngIf="!question.correct" class="incorrectOptionResult">
             <p>Incorrecto</p>
-            <div class="resultOption" *ngIf="question.selectedOption"><span>X</span>{{question.selectedOption}}</div>
-            <div class="resultOption" *ngIf="!question.selectedOption"><span>X</span>Sin respuesta</div>
+            <div class="resultOption" *ngIf="question.selectedOption.id "><span>X</span>{{question.selectedOption.text}}</div>
+            <div class="resultOption" *ngIf="!question.selectedOption.id "><span>X</span>Sin respuesta</div>
         </div>
         <div  class="correctOptionResult">
             <p>Correcto</p>
-            <div class="resultOption"><span>✓</span>{{question.correctOption}}</div>
+            <div class="resultOption"><span>✓</span>{{question.correctOption.text}}</div>
         </div>
         <div class="explicacion" *ngIf="!question.correct && question.explicacion">
             <p><strong>Razón:</strong> {{question.explicacion}}

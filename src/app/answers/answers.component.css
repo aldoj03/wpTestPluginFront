@@ -13,8 +13,7 @@
 }
 
 .question_img_container{
-max-width: 300px;
-max-height: 300px;
+max-width: 400px;
 margin: auto;
 }
 .question_img_container img{
@@ -25,7 +24,7 @@ margin: auto;
 }
 
 .img_answer_container{
-    max-width: 300px;
+    max-width: 400px;
     margin: auto;
 }
 .img_answer_container img{
@@ -43,5 +42,10 @@ margin: auto;
     mat-radio-button{
         max-width: unset;
         width: 100%;
+    }
+
+    .question_img_container,.img_answer_container{
+        margin-top: 8px;
+        margin-bottom: 8px;
     }
 }

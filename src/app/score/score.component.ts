@@ -21,7 +21,7 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
   public noAnswers = 0;
   public chart: any = null
   public resultsSaved: boolean = false
-  public porcentaje: number | String = 0;
+  public porcentaje: number | string = 0;
   public saveSubscription: Subscription | null = null;
 
 
@@ -45,51 +45,34 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
   calcResults() {
 
 
+    console.log(this.results);
 
     this.results.map((result, index) => {
       const optionsModel: Array<any> = this.questions[index].respuestas;
 
-      optionsModel.map(option => {
+      optionsModel.map((option, i) => {
 
 
-        if (option.texto == result.selected && option.checked == 'checked') this.correctAnswers++
-        if (option.texto == result.selected && option.checked != 'checked') this.incorrectAnswers++
+        if (i == result.selected && option.checked == 'checked') this.correctAnswers++
+        if (i == result.selected && option.checked != 'checked') this.incorrectAnswers++
       })
 
       if (result.selected == null) this.noAnswers++
     })
     this.porcentaje = (this.correctAnswers * 100) / this.results.length
-    this.porcentaje = this.porcentaje.toFixed(2)
-
-    const dateObj = new Date()
-    const date = `${dateObj.getDay()}/${dateObj.getMonth()}/${dateObj.getFullYear()} a las ${dateObj.getMinutes()}:${dateObj.getHours()}`
-    
-    const data = {
-      "id_user": 1,
-      "id_test": 1,
-      "date": date,
-      "attemps": 1,
-      "completed": this.porcentaje,
-      "max_performance": 1,
-      "session_data": "asd"
-    };
+    this.porcentaje = Number(this.porcentaje.toFixed(2))
 
 
-    if(!this.testService.getSavedTest){
-    const idtest = window.localStorage.getItem('idtest')
-    if(idtest){
 
-      this.saveSubscription = this.testService.saveTest(idtest, data).subscribe(val => {
-        if (val.status = '200') {
-          this.resultsSaved = true
-          this.testService.setSavedTest = true
-          setTimeout(() => this.paintChart(), 500);
-  
-        }
-      }, err => console.log(err));
-    }
+    if (!this.testService.getSavedTest) {
 
-    }else{
+      this.saveTest()
+      
+      console.log('guardar test');
+      
+    } else {
+      console.log('test resultados sin guardar');
+      
       this.resultsSaved = true
       setTimeout(() => this.paintChart(), 500);
     }
@@ -135,6 +118,38 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy() {
     if (this.saveSubscription) this.saveSubscription.unsubscribe()
+  }
+
+  saveTest() {
+    const idtest = window.localStorage.getItem('idtest')
+    const dateObj = new Date()
+    const date = `${dateObj.getDay()}/${dateObj.getMonth()}/${dateObj.getFullYear()} a las ${dateObj.getMinutes()}:${dateObj.getHours()}`
+    const idUser = window.localStorage.getItem('idusuario');
+    if (idUser && idtest) {
+      const data = {
+        "id_user": idUser.toString(),
+        "id_test": idtest.toString(),
+        "date": date,
+        "attemps": 1,
+        "completed": this.porcentaje.toString(),
+        "max_performance": 1,
+        "session_data": "asd"
+      };
+
+      console.log('object to save', data);
+      
+
+      this.saveSubscription = this.testService.saveTest(idtest, data).subscribe(val => {
+        console.log(val);
+        
+        if (val.status == '200') {
+          this.resultsSaved = true
+          this.testService.setSavedTest = true
+          setTimeout(() => this.paintChart(), 500);
+
+        }
+      }, err => console.log(err));
+    }
   }
 
 }

@@ -10,7 +10,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   @Input() selectedOptions: Array<any> = [];
   @Input() questions: Array<any> = [];
   @Input() title: any;
-  @Output() scoreEmitter: EventEmitter<String> = new EventEmitter();
+  @Output() scoreEmitter: EventEmitter<string> = new EventEmitter();
 
   public questionsToShow: Array<any> = [];
   public questionPages: Array<Array<any>> = [[]];
@@ -44,16 +44,39 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
   showResults() {
 
-    this.questions.forEach((question, index) => {
+    this.questions.forEach((question, indexQuestion) => {
       // console.log(question);
       const options: Array<any> = question.respuestas;
       // console.log(options);
+      let correctOption = {
+        id : '',
+        text : ''
+      };
+      let selectedOption = {
+        id : '',
+        text : ''
+      };
+  
+      options.forEach((val, indexOption) => {
 
-      const correctOption = options.filter(val => val.checked == 'checked')[0].texto
+        if (val.checked == 'checked') {
+          correctOption  = {
+            id : indexOption.toString(),
+            text : val.texto
+          }
+        }
+      if(this.selectedOptions[indexQuestion].selected == indexOption){
 
-      const selectedOption = this.selectedOptions[index].selected
-      const id = index + 1
-      const correct = correctOption == selectedOption ? true : false
+        selectedOption = {
+         id: indexOption.toString(),
+         text: val.texto
+       }
+      }
+    
+      })
+
+      const id = indexQuestion + 1
+      const correct = correctOption.id == selectedOption.id ? true : false
       this.questionsToShow.push({
         title: question.pregunta.title,
         correctOption,
