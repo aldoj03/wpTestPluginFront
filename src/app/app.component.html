@@ -1,8 +1,8 @@
 <div class="container">
   <div class="wrapper">
     <header>
-      <h1>Prueba de Conocimientos</h1>
+      <h1>{{title}}</h1>
     </header>
-      <app-test></app-test>
+      <app-test (setTitle)="setTitle($event)"></app-test>
   </div>
 </div>

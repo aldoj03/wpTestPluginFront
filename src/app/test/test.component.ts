@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { TestService } from '../services/test.service';
 import { BehaviorSubject } from 'rxjs'
@@ -10,9 +10,12 @@ import { BehaviorSubject } from 'rxjs'
 })
 export class TestComponent implements OnInit {
 
-  public title: string = 'Esta es la pregunta';
+  @Output() setTitle = new EventEmitter();
+
+  public title: string = '';
   public action: string = 'test';
 
+  public hours: number = 0;
   public min: number = 0;
   public sec: number = 0;
   public questionPageSubject: BehaviorSubject<number> = new BehaviorSubject(0);
@@ -51,10 +54,20 @@ export class TestComponent implements OnInit {
 
 
     const idtest = window.localStorage.getItem('idtest');
-    if (idtest) {
+    const idUser = window.localStorage.getItem('idusuario');
+    if (idtest && idUser) {
 
-      this.testService.getTest(idtest)
-        .subscribe(val => this.initQuestions(val));
+      this.testService.getTest(idtest,idUser)
+        .subscribe(val =>{
+          console.log(val)
+          if(val == 'Limite superado'){
+            alert(val)
+          }
+          if(val && val != 'Limite superado'){
+
+            this.initQuestions(val)
+          }
+        } );
     } else {
       console.log('No hay test');
 
@@ -72,6 +85,7 @@ export class TestComponent implements OnInit {
     if (!val.questions) { console.log('No hay preguntas'); }
     this.pointsForQuestion = test.pointsForQuestion;
     const questions = val.questions[0];
+    this.title = test.subcategoriesNames[0] ? test.subcategoriesNames[0] : ''
 
     this.randomOrder = test.ordenAleatorio === 'true' ? true : false;
 
@@ -80,7 +94,7 @@ export class TestComponent implements OnInit {
 
 
 
-    this.title = test.name;
+    this.emitTitle(test.name)
     this.limitTime = test.limitTimeTotalTest === 'true' && test.limitTimeCheck === 'true' ? test.inputTestTotalExam : '';
 
 
@@ -111,8 +125,12 @@ export class TestComponent implements OnInit {
   initTime(): void {
 
 
-    this.min = Number(this.limitTime.substr(0, 2));
-    this.sec = Number(this.limitTime.substr(3, 4));
+    this.hours = Number(this.limitTime.substr(0, 2));
+    this.min = Number(this.limitTime.substr(3, 4));
+    this.sec = 0;
+    console.log('min',this.min);
+    console.log('hours',this.hours);
+    
     //  this.questionPageSubject.unsubscribe()
     const interval = setInterval(() => {
 
@@ -121,10 +139,14 @@ export class TestComponent implements OnInit {
       } else {
         this.sec = 59;
         this.min--;
+        if(this.min == 0){
+        this.min = 59;
+          this.hours--
+        }
       }
 
       //  test finished
-      if (this.min === 0 && this.sec === 0 || this.questionPage === this.questions.length) {
+      if (this.hours === 0 && this.min === 0 || this.questionPage === this.questions.length) {
         clearInterval(interval);
         const reasson = this.questionPage === this.questions.length ? 'completed' : 'time expired';
         this.finishTest(reasson);
@@ -159,26 +181,34 @@ export class TestComponent implements OnInit {
     this.action = action;
   }
 
-  resetTest(event: any): void {
-    this.title = 'Esta es la pregunta';
+resetTest(event: any): void {
+    this.title = '';
     this.action = 'test';
+    const idUser = localStorage.getItem('idusuario')
+    const idTest = localStorage.getItem('idtest')
+    this.testService.newAttempt(idUser,idTest)
+    .subscribe(val=>{
+      console.log(val)
+      if(val == 1){
 
-    this.min = 0;
-    this.sec = 0;
-    this.questionPageSubject.next(0);
-    this.limitTime = '';
-    this.dataLoaded = false;
-
-    this.validForm = false;
-
-    this.optionsForm = new FormGroup({
-      options: new FormArray([])
-    });
-
-    this.selectedOptions = [];
-
-    this.questions = Array();
-    this.startTest();
+        this.hours = 0;
+        this.min = 0;
+        this.questionPageSubject.next(0);
+        this.limitTime = '';
+        this.dataLoaded = false;
+    
+        this.validForm = false;
+    
+        this.optionsForm = new FormGroup({
+          options: new FormArray([])
+        });
+    
+        this.selectedOptions = [];
+    
+        this.questions = Array();
+        this.startTest();
+      }
+    })
   }
 
   finishTest(reasson: string): void {
@@ -187,6 +217,11 @@ export class TestComponent implements OnInit {
     if (reasson === 'time expired') { alert('Tiempo límite expirado'); }
     this.questionPageSubject.next(this.questions.length);
     this.quetionSubscription?.unsubscribe();
+  }
+
+
+  emitTitle(title:string){
+    this.setTitle.emit(title)
   }
 
 

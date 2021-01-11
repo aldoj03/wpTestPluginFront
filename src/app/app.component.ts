@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'wpTestFront';
+  public title:string = '';
+
+  setTitle(title:any){
+    console.log(title);
+    
+    this.title = title
+  }
 }

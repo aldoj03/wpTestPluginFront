@@ -22,13 +22,11 @@ export class TestService {
     }
   }
 
-  getTest(id: string) {
+  getTest(id: string,id_user:any) {
 
-    const body = {
-      id
-    };
+   
     
-    const endPoint = this.ulrBase + 'testdata/' + id;
+    const endPoint = `${this.ulrBase}testdata?id=${id}&id_user=${id_user}`;
     console.log(endPoint);
     return this.httpClient.get<any>(endPoint)
 
@@ -46,6 +44,12 @@ export class TestService {
 
   }
 
+  newAttempt(idUser:any,idTest:any){
+
+    const body = {idUser,idTest}
+    const endPoint = this.ulrBase + 'newAttempt'
+    return this.httpClient.post(endPoint,body);
+  }
   
   public set setSavedTest(v : boolean) {
     this.testSaved = v;

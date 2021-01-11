@@ -127,8 +127,8 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
     const idUser = window.localStorage.getItem('idusuario');
     if (idUser && idtest) {
       const data = {
-        "id_user": idUser.toString(),
-        "id_test": idtest.toString(),
+        "id_user": idUser,
+        "id_test": idtest,
         "date": date,
         "attemps": 1,
         "completed": this.porcentaje.toString(),

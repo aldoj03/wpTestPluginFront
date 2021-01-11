@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TestService } from './services/test.service';
 import { ResultsComponent } from './results/results.component';
+import { HoursPipe } from './pipes/hours.pipe';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { ResultsComponent } from './results/results.component';
     AnswersComponent,
     ScoreComponent,
     ResultsComponent,
+    HoursPipe,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { ResultsComponent } from './results/results.component';
     CoreModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxPrintModule
   ],
   providers: [TestService],
   bootstrap: [AppComponent]

@@ -1,31 +1,44 @@
 <div class="results_content" *ngIf="resultsSaved">
-    <h4 class="result_subtitle" *ngIf="porcentaje > aprovePercentage">Felicidades por haber completado la prueba!</h4>
-    <h4 class="result_subtitle" *ngIf="porcentaje < aprovePercentage">Lo sentimos no has conseguido completar la prueba!</h4>
-    <div class="results_container">
-        <div class="chart_results_wrapper">
-            <div class="chart_porcentaje">
-                <strong>{{porcentaje}}%</strong>
-                <span>{{correctAnswers}} de {{results.length}}</span>
-            </div>
-            <div id="chartContainer" style="height: 200px; width: 300px;"></div>
-        </div>
-        
-        <div class="results_count">
-            <div class="count_corrects">{{correctAnswers}} repuestas Correctas</div>
-            <div class="count_incorrects">{{incorrectAnswers}} respuestas Incorrectas</div>
-            <div class="count_no_resueltas">{{noAnswers}} respuestas no Resueltas</div>
-        </div>
-    </div>
 
-    <div class="reuslts_conclution">
-        <h2 *ngIf="porcentaje < aprovePercentage" >El procentaje mínimo de aprobación es del {{aprovePercentage}}%</h2>
-        <p *ngIf="porcentaje < aprovePercentage">¡Lo siento, tu resultado debe ser mejor, para poder ganar!</p>
-        <button mat-raised-button class="button-blue" type="button" (click)="goToResponses()">QUIERO VER MIS RESPUESTAS</button>
-        <button mat-raised-button class="button-blue" type="button" >QUIERO ESTUDIAR UN POCO MÁS</button>
+    <div id="print-section">
+
+        <h4 class="result_subtitle" *ngIf="porcentaje > aprovePercentage">Felicidades por haber completado la prueba!
+        </h4>
+        <h4 class="result_subtitle" *ngIf="porcentaje < aprovePercentage">Lo sentimos no has conseguido completar la
+            prueba!
+        </h4>
+        <div class="results_container">
+            <div class="chart_results_wrapper">
+                <div class="chart_porcentaje">
+                    <strong>{{porcentaje}}%</strong>
+                    <span>{{correctAnswers}} de {{results.length}}</span>
+                </div>
+                <div id="chartContainer" style="height: 200px; width: 300px;"></div>
+            </div>
+
+            <div class="results_count">
+                <div class="count_corrects">{{correctAnswers}} repuestas Correctas</div>
+                <div class="count_incorrects">{{incorrectAnswers}} respuestas Incorrectas</div>
+                <div class="count_no_resueltas">{{noAnswers}} respuestas no Resueltas</div>
+            </div>
+        </div>
+
+        <div class="reuslts_conclution">
+            <h2 *ngIf="porcentaje < aprovePercentage">El procentaje mínimo de aprobación es del {{aprovePercentage}}%
+            </h2>
+            <p *ngIf="porcentaje < aprovePercentage">¡Lo siento, tu resultado debe ser mejor, para poder ganar!</p>
+        </div>
     </div>
+    
     <div class="footer_buttons">
-        <button mat-raised-button class="button-blue"  type="button">IMPRIMIR</button>
-        <button mat-raised-button class="button-blue"  type="button" (click)="resetTest()">REPETIR TEST'S</button>
+        <div>
+            <button mat-raised-button class="button-blue" type="button" (click)="goToResponses()">QUIERO VER MIS
+                RESPUESTAS</button>
+            <button mat-raised-button class="button-blue" type="button">QUIERO ESTUDIAR UN POCO MÁS</button>
+        </div>
+        <button mat-raised-button class="button-blue" type="button" printSectionId="print-section"
+            [useExistingCss]="true" ngxPrint>IMPRIMIR</button>
+        <button mat-raised-button class="button-blue" type="button" (click)="resetTest()">REPETIR TEST'S</button>
         <button mat-raised-button class="button-blue" disabled type="button">ENVIAR EMAIL</button>
         <button mat-raised-button class="button-blue" disabled type="button">COMPARTIR</button>
     </div>
