@@ -138,15 +138,17 @@ export class TestComponent implements OnInit {
         this.sec--;
       } else {
         this.sec = 59;
-        this.min--;
         if(this.min == 0){
-        this.min = 59;
+          this.min = 59;
           this.hours--
+        }else{
+          
+          this.min--;
         }
       }
 
       //  test finished
-      if (this.hours === 0 && this.min === 0 || this.questionPage === this.questions.length) {
+      if (this.hours === 0 && this.min === 0 && this.sec === 0 || this.questionPage === this.questions.length) {
         clearInterval(interval);
         const reasson = this.questionPage === this.questions.length ? 'completed' : 'time expired';
         this.finishTest(reasson);
@@ -184,31 +186,24 @@ export class TestComponent implements OnInit {
 resetTest(event: any): void {
     this.title = '';
     this.action = 'test';
-    const idUser = localStorage.getItem('idusuario')
-    const idTest = localStorage.getItem('idtest')
-    this.testService.newAttempt(idUser,idTest)
-    .subscribe(val=>{
-      console.log(val)
-      if(val == 1){
+   
 
-        this.hours = 0;
-        this.min = 0;
-        this.questionPageSubject.next(0);
-        this.limitTime = '';
-        this.dataLoaded = false;
-    
-        this.validForm = false;
-    
-        this.optionsForm = new FormGroup({
-          options: new FormArray([])
-        });
-    
-        this.selectedOptions = [];
-    
-        this.questions = Array();
-        this.startTest();
-      }
-    })
+      this.hours = 0;
+      this.min = 0;
+      this.questionPageSubject.next(0);
+      this.limitTime = '';
+      this.dataLoaded = false;
+  
+      this.validForm = false;
+  
+      this.optionsForm = new FormGroup({
+        options: new FormArray([])
+      });
+  
+      this.selectedOptions = [];
+  
+      this.questions = Array();
+      this.startTest();
   }
 
   finishTest(reasson: string): void {
