@@ -27,6 +27,7 @@ export class TestComponent implements OnInit {
   public dataLoaded: boolean = false;
   public randomOrder: boolean = false;
   public validForm: boolean = false;
+  public scoreMsj = {};
 
   public optionsForm: FormGroup = new FormGroup({
     options: new FormArray([])
@@ -56,7 +57,9 @@ export class TestComponent implements OnInit {
     const idtest = window.localStorage.getItem('idtest');
     const idUser = window.localStorage.getItem('idusuario');
     if (idtest && idUser) {
-
+    console.log('este es el id del test: ', idtest)
+    console.log('este es el id del usuario: ', idUser)
+    console.log('entre datas')
       this.testService.getTest(idtest,idUser)
         .subscribe(val =>{
           console.log(val)
@@ -82,11 +85,16 @@ export class TestComponent implements OnInit {
     console.log(val);
 
     const test = val.test;
-    if (!val.questions) { console.log('No hay preguntas'); }
-    this.pointsForQuestion = test.pointsForQuestion;
-    const questions = val.questions[0];
-    this.title = test.subcategoriesNames[0] ? test.subcategoriesNames[0] : ''
 
+    if (!val.questions) { console.log('No hay preguntas'); }
+    this.scoreMsj = {
+      mensajeFail: test.mensajeFail,
+      mensajeApproved: test.messageapproved
+    };
+    this.pointsForQuestion = test.pointsForQuestion;
+    const questions = val.questions;
+    this.title = test.subcategoriesNames[0] ? test.subcategoriesNames[0] : ''
+    
     this.randomOrder = test.ordenAleatorio === 'true' ? true : false;
 
     this.pointporcentaje = test.pointporcentaje;

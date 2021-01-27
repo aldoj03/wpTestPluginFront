@@ -3,14 +3,7 @@
         <ng-container *ngSwitchCase="'test'">
 
             <h2 class="test_title">Prueba de {{title}}</h2>
-            <app-score 
-            *ngIf="questionPage  == questions.length" 
-            [results]="selectedOptions" 
-            [questions]="questions"
-            (setAction)="setAction( $event )"
-            (reloadTest)="resetTest( $event )"
-            [aprovePercentage]="pointporcentaje"
-            >
+            <app-score *ngIf="questionPage  == questions.length" [results]="selectedOptions" [questions]="questions" [scoreMsj]="scoreMsj" (setAction)="setAction( $event )" (reloadTest)="resetTest( $event )" [aprovePercentage]="pointporcentaje">
             </app-score>
             <div class="test_content" *ngIf="dataLoaded && questionPage  != questions.length">
                 <div class="test_time_container" *ngIf="limitTime">
@@ -24,29 +17,16 @@
                     <mat-progress-bar mode="determinate" [value]="((questionPage ) / questions.length) * 100">
                     </mat-progress-bar>
                 </div>
-                <app-answers 
-                [questionPage]="questionPage" 
-                [title]="questions[questionPage].pregunta.title"
-                [selectedOptions]="selectedOptions[questionPage]" 
-                [answers]="questions[questionPage].respuestas"
-                [img]="questions[questionPage].pregunta.img"
-                [randomOrder] = "randomOrder"
-                (onChange)="activateForm()"></app-answers>
+                <app-answers [questionPage]="questionPage" [title]="questions[questionPage].pregunta.title" [selectedOptions]="selectedOptions[questionPage]" [answers]="questions[questionPage].respuestas" [img]="questions[questionPage].pregunta.img" [randomOrder]="randomOrder"
+                    (onChange)="activateForm()"></app-answers>
                 <div class="buttons">
-                    <button mat-raised-button [disabled]="!validForm" (click)="onSubmit()"
-                        class="button-blue">ENVIAR</button>
-                    <button mat-raised-button [disabled]="validForm" (click)="skipQuestion()"
-                        class="button-blue">SIGUIENTE</button>
+                    <button mat-raised-button [disabled]="!validForm" (click)="onSubmit()" class="button-blue">ENVIAR</button>
+                    <button mat-raised-button [disabled]="validForm" (click)="skipQuestion()" class="button-blue">SIGUIENTE</button>
                 </div>
             </div>
         </ng-container>
         <ng-container *ngSwitchCase="'responses'">
-            <app-results 
-            [selectedOptions]="selectedOptions" 
-            [questions]="questions"
-            [title]="title"
-            (scoreEmitter)="setAction( $event )"
-            ></app-results>
+            <app-results [selectedOptions]="selectedOptions" [questions]="questions" [title]="title" (scoreEmitter)="setAction( $event )"></app-results>
         </ng-container>
     </ng-container>
 </div>

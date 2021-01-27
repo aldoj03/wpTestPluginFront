@@ -14,12 +14,13 @@ export class AnswersComponent implements OnInit, OnChanges {
   @Input() questionPage: number = 0;
   @Input() img: String = '';
   @Input() randomOrder: boolean = false;
+  letra = ['A', 'B', 'C', 'D']; 
 
   constructor() { }
 
   ngOnInit(): void {
     console.log('random options', this.randomOrder);
-
+    console.log('Console', this.letra[0])
   }
 
   change() {

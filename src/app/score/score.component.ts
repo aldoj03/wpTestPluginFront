@@ -12,6 +12,7 @@ export class ScoreComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() results: Array<any> = [];
   @Input() questions: any;
+  @Input() scoreMsj: any;
   @Input() aprovePercentage: number = 0;
   @Output() setAction = new EventEmitter();
   @Output() reloadTest = new EventEmitter();

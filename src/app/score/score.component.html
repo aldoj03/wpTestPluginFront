@@ -2,10 +2,9 @@
 
     <div id="print-section">
 
-        <h4 class="result_subtitle" *ngIf="porcentaje > aprovePercentage">Felicidades por haber completado la prueba!
+        <h4 class="result_subtitle" *ngIf="porcentaje > aprovePercentage">{{scoreMsj.mensajeApproved}}
         </h4>
-        <h4 class="result_subtitle" *ngIf="porcentaje < aprovePercentage">Lo sentimos no has conseguido completar la
-            prueba!
+        <h4 class="result_subtitle" *ngIf="porcentaje < aprovePercentage">{{scoreMsj.mensajeFail}}
         </h4>
         <div class="results_container">
             <div class="chart_results_wrapper">
@@ -29,15 +28,14 @@
             <p *ngIf="porcentaje < aprovePercentage">¡Lo siento, tu resultado debe ser mejor, para poder ganar!</p>
         </div>
     </div>
-    
+
     <div class="footer_buttons">
         <div>
             <button mat-raised-button class="button-blue" type="button" (click)="goToResponses()">QUIERO VER MIS
                 RESPUESTAS</button>
             <button mat-raised-button class="button-blue" type="button">QUIERO ESTUDIAR UN POCO MÁS</button>
         </div>
-        <button mat-raised-button class="button-blue" type="button" printSectionId="print-section"
-            [useExistingCss]="true" ngxPrint>IMPRIMIR</button>
+        <button mat-raised-button class="button-blue" type="button" printSectionId="print-section" [useExistingCss]="true" ngxPrint>IMPRIMIR</button>
         <button mat-raised-button class="button-blue" type="button" (click)="resetTest()">REPETIR TEST'S</button>
         <button mat-raised-button class="button-blue" disabled type="button">ENVIAR EMAIL</button>
         <button mat-raised-button class="button-blue" disabled type="button">COMPARTIR</button>

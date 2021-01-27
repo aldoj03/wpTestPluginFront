@@ -1,53 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 html {
     --scrollbarBG: #CFD8DC;
     --thumbBG: #a3a7a8be;
-  }
-  *::-webkit-scrollbar {
+}
+
+*::-webkit-scrollbar {
     width: 4px;
-  }
-  * {
+}
+
+* {
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
     box-sizing: border-box;
-  }
-  *::-webkit-scrollbar-track {
+}
+
+*::-webkit-scrollbar-track {
     background: var(--scrollbarBG);
-  }
-  *::-webkit-scrollbar-thumb {
-    background-color: #0092eda8 ;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #0092eda8;
     border-radius: 6px;
-  }
-  
-
-.button-blue{
-    background-color:  #0092ed;
-    color: white  
-}
-.button-orange{
-    background-color:  orangered;
-    color: white  
 }
 
-.test_title{
+.button-blue {
+    background-color: #0092ed;
+    color: white
+}
 
+.button-orange {
+    background-color: orangered;
+    color: white
+}
+
+.test_title {
     text-align: center;
     margin-top: 20px;
     font-size: 1.8em;
     color: rgb(82, 82, 82);
-
 }
 
-.button-blue:hover{
-    background-color:  orangered ;
-
+.button-blue:hover {
+    background-color: orangered;
 }
-.button-blue:hover{
-    background-color:  #0092ed ;
 
+.button-blue:hover {
+    background-color: #0092ed;
 }
 
 .mat-progress-bar-fill::after {
@@ -58,15 +67,15 @@ html {
     background-color: #e8e8e8;
 }
 
-.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
     border-color: #0092ed;
 }
 
-.mat-radio-button.mat-accent .mat-radio-inner-circle{
-background: #0092ed ;
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background: #0092ed;
 }
 
-.circle_number{
+.circle_number {
     padding: 12px;
     display: flex;
     align-items: center;
@@ -80,59 +89,58 @@ background: #0092ed ;
     margin-right: 18px;
 }
 
-
-.question_title{
+.question_title {
     display: flex;
-    align-items: center;
 }
 
-.question_title h3{
+.question_title h3 {
     margin: 0;
 }
 
-mat-radio-button{
+mat-radio-button {
     width: fit-content;
     padding: 15px;
     border-radius: 6px;
     border: 1px solid #53535398;
-    background-color:#b3b3b31c;
-    min-width:250px;
+    background-color: #b3b3b31c;
+    min-width: 250px;
     transition: 300ms;
     font-size-adjust: initial;
 }
 
-
-
-.mat-radio-checked{
-    border: 1px solid #0092ed ;
+.mat-radio-checked {
+    border: 1px solid #0092ed;
     color: #0092ed;
     font-weight: 600;
     background: transparent;
 }
-mat-radio-button:hover{
+
+mat-radio-button:hover {
     border-color: #0092ed;
 }
+
 mat-radio-button:hover .mat-radio-container .mat-radio-outer-circle {
     border-color: #0092ed;
 }
 
-.mat-progress-spinner circle, .mat-spinner circle {
+.mat-progress-spinner circle,
+.mat-spinner circle {
     stroke: #0092ed;
 }
 
 * {
     user-select: none;
-  }
-  *::selection {
-    background: none;
-  }
-  *::-moz-selection {
-    background: none;
-  }
+}
 
-  
-mat-spinner{
+*::selection {
+    background: none;
+}
 
+*::-moz-selection {
+    background: none;
+}
+
+mat-spinner {
     position: absolute !important;
     left: 0;
     top: 0;

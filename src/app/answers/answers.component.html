@@ -1,8 +1,11 @@
-<div class="circle_number">
-    {{questionPage + 1}}
-</div>
 <div class="question_title">
-    <h3 [innerHTML]="title"></h3>
+    <div class="circle_number">
+        {{questionPage + 1}}
+    </div>
+    <div>
+        <h3 [innerHTML]="title"></h3>
+    </div>
+
 </div>
 <div class="question_img_container">
     <img *ngIf="!img.includes('placeholder-image')" [src]="img" alt="">
@@ -10,11 +13,16 @@
 <div class="answers_container">
     <mat-radio-group [(ngModel)]="selectedOptions.selected" (change)="change()">
         <ng-container *ngFor="let option of answers; index as i">
-            <mat-radio-button class="example-radio-button" 
-                *ngIf="option.texto"
-                [value]="i" >
-                <span [innerHTML]="option.texto"></span>
-            </mat-radio-button>
+            <div style="display: flex;" *ngIf="option.texto">
+                <div style="font-size: 24px; color: orangered;font-weight: bold;    padding: 15px 9px 0px 0px;
+                ">
+                    {{letra[i]}}.
+                </div>
+                <mat-radio-button class="example-radio-button" [value]="i">
+                    <p [innerHTML]="option.texto" class="wptest-popular-p"></p>
+                </mat-radio-button>
+            </div>
+
             <div *ngIf="!option.img.includes('placeholder-image') && option.img" class="img_answer_container">
                 <img [src]="option.img" alt="">
             </div>
